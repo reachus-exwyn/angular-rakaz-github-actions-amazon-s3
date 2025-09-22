@@ -1,0 +1,25 @@
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+  <div 
+    *ngFor="let toast of toasts; trackBy: trackByToastId" 
+    class="toast show" 
+    role="alert" 
+    aria-live="assertive" 
+    aria-atomic="true"
+    [ngClass]="getToastClass(toast.type)"
+    [@toastAnimation]>
+    <div class="toast-header">
+      <i [class]="getToastIcon(toast.type)" class="me-2"></i>
+      <strong class="me-auto">{{ toast.title }}</strong>
+      <button 
+        type="button" 
+        class="btn-close" 
+        [ngClass]="{'btn-close-white': toast.type === 'success' || toast.type === 'danger' || toast.type === 'info'}"
+        (click)="removeToast(toast.id)"
+        aria-label="Close">
+      </button>
+    </div>
+    <div class="toast-body">
+      {{ toast.message }}
+    </div>
+  </div>
+</div> 

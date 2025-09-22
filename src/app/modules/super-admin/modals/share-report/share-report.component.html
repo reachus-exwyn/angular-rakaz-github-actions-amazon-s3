@@ -1,0 +1,40 @@
+<div class="formStyle">
+    <div class="modal-header">
+      <h5 class="modal-title">Send Mail</h5>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="close()"
+      ></button>
+    </div>
+  
+    <div class="modal-body">
+      <!-- Customer Admin Type Form -->
+      <form [formGroup]="frmShareReport">
+        <div class="form-group">
+          <label>Email <span class="text-danger">*</span></label>
+          <div class="d-flex gap-2">
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('email') }" maxlength="30"/>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+            Enter email
+          </div>
+          </div>
+          
+          <div
+            class="text-danger"
+            *ngIf="
+              frmShareReport.get('email')?.invalid &&
+              frmShareReport.get('email')?.touched
+            "
+          >
+            Email is required.
+          </div>
+          
+        </div>
+      </form> 
+      
+    </div>
+  </div>
+  

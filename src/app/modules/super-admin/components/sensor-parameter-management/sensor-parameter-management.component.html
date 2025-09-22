@@ -1,0 +1,135 @@
+<div class="headSection">
+    <div class="leftHeadSection">   
+    </div>
+    <div class="rightHeadSection">
+        <div class="searchBlock">
+            <i class="bi bi-search"></i>
+             <input type="text" class="formControlSearch" placeholder="Search" (input)="searchSensor($event)">
+        </div>
+
+        <button class="btn outline-primaryBt outline-primaryBt-custom" (click)="openSensorModal('create')">Add Sensor</button>
+    </div>
+</div>
+<div class="bodyContent sensorParaManWrapp">
+    <div class="row mt-4 justify-content-md-center">
+
+        <div class="col-md-3" *ngFor="let sensor of sensors">
+            <div class="card">
+                <div class="cardImgSPM">
+                    <img [src]="sensor.image" alt="noise" class="img-fluid">
+                </div>               
+                <div class="card-body">
+                    <img [src]="sensor.icon" alt="noise" class="noiseIconSPM">
+                    <h5 class="card-title text-center">{{sensor.name}}</h5>
+                    <div class="sPMcardBt">
+                        <button class="btn textPrimaryBt" (click)="openViewModal(noiseViewModal, sensor)">View</button>
+                        <button class="btn textPrimaryBt" (click)="openSensorModal('edit', sensor)">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- <div class="col-md-3">
+             <div class="card">
+                 <div class="cardImgSPM">
+                     <img src="assets/noise-img.jpg" alt="noise" class="img-fluid">
+                 </div>
+                
+                 <div class="card-body">
+                     <img src="assets/noise-icon.png" alt="noise" class="noiseIconSPM">
+                     <h5 class="card-title text-center">Noise</h5>
+                     <div class="sPMcardBt">
+                         <button class="btn textPrimaryBt" (click)="openViewModal(noiseViewModal)">View</button>
+                         <button class="btn textPrimaryBt">Update</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         
+         <div class="col-md-3">
+             <div class="card">
+                 <img src="assets/water-img.jpg" alt="noise" class="cardImgSPM">
+                 <div class="card-body">
+                     <img src="assets/water-icon.jpg" alt="noise" class="noiseIconSPM">
+                     <h5 class="card-title text-center">Water</h5>
+                     <div class="sPMcardBt">
+                         <button class="btn textPrimaryBt">View</button>
+                         <button class="btn textPrimaryBt">Update</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         
+         <div class="col-md-3">
+             <div class="card">
+                 <img src="assets/air-img.jpg" alt="noise" class="cardImgSPM">
+                 <div class="card-body">
+                     <img src="assets/air-icon.jpg" alt="noise" class="noiseIconSPM">
+                     <h5 class="card-title text-center">Air</h5>
+                     <div class="sPMcardBt">
+                         <button class="btn textPrimaryBt">View</button>
+                         <button class="btn textPrimaryBt">Update</button>
+                     </div>
+                 </div>
+             </div>
+         </div> -->
+
+     </div>
+ </div>
+
+ 
+ <ng-template #noiseViewModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Noise Sensor Parameter Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+           <div class="row">
+                <div class="col-md-12 ">
+                    <div class=" pull-right">
+                        <div class="searchBlock mb-3">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="formControlSearch" placeholder="Search" (input)="searchParameter($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+
+        <!--  <div class="tableBlock always-scroll">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Parameter</th>
+                        <th>Units</th> 
+                        <th>Min Threshold Limit</th>                          
+                        <th>Max Threshold Limit</th>
+                        <th>Index Start</th>
+                        <th>Index End</th>
+                        <th>Parameter Length</th>                           
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let parameter of sensorParameters">
+                            <td>{{parameter.name}}</td>
+                            <td>{{parameter.unit}}</td>                  
+                            <td>{{parameter.min_threshold}}</td>
+                            <td>{{parameter.max_threshold}}</td>
+                            <td>{{parameter.index_start}}</td>
+                            <td>{{parameter.index_end}}</td>
+                            <td>{{parameter.parameter_length}}</td>        
+                    </tr>                  
+           
+                    
+                </tbody>
+            </table>
+            </div> -->
+            <ag-grid-angular style="width: 100%;" class="ag-theme-alpine ag-rakz-custom" [theme]="'legacy'" [rowData]="rowData"
+                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="pageSize"
+                [paginationPageSizeSelector]="pageSizeSelector" domLayout="autoHeight" [paginationAutoPageSize]="true" (paginationChanged)="onPaginationChanged()"
+                ></ag-grid-angular>
+    </div>        
+</ng-template>
+  

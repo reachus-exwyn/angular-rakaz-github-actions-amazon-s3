@@ -1,0 +1,47 @@
+<div class="headSection">
+    <div class="leftHeadSection">   
+    </div>
+    <div class="rightHeadSection">
+        <button class="btn outline-primaryBt" (click)="openSubscriptionModal('create')">Add Subscription</button>
+    </div>
+</div>
+
+<div class="bodyContent">
+    <div class="row subscriptionWrapp justify-content-md-center mt-4" *ngIf="subscriptions.length > 0">
+
+        <ng-container *ngFor="let subscription of subscriptions">
+        <div class="col-lg-3 col-md-4 col-sm-6 subscriptionCol">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2>{{subscription.plan_name}} Plan</h2>
+                        <button type="button" class="btn btnIconInput deleteIconBt" (click)="deleteSubscription(subscription)">
+                            <i class="bi bi-trash-fill"></i>
+                         </button>	
+                    </div>
+
+                    <div class="cardHeading">
+                        <h3><i class="bi bi-star-half"></i> {{subscription.currency}} {{subscription.price}} / {{subscription.period}}</h3>
+                      
+                    </div>
+                    
+                    
+                    <div class="card-text">
+                        <h6>This plan includes :</h6>
+                        <ul>
+                            <li *ngFor="let description of subscription.descriptions">{{description}}</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline-primary"  (click)="openSubscriptionModal('edit', subscription)">Update <i class="bi bi-pencil-fill"></i></button>
+
+
+
+
+                </div>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+    </div>
+</div>

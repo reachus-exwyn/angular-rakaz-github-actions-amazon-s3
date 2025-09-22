@@ -1,0 +1,139 @@
+<div class="formStyle">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title">
+        Update Profile
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </div>
+  
+    <!-- Form Start -->
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+  
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row">
+  
+          <!-- Customer Name -->
+          <div class="col-md-6 mb-3">
+            <label>Customer Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="customerName" placeholder="Enter Customer Name"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('customerName') }"  [readonly]="true"/>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('customerName')">
+              Enter customer name
+            </div>
+          </div>
+  
+          <!-- Organization Name -->
+          <div class="col-md-6 mb-3">
+            <label>Organization Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Organization Name"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('organizationName') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('organizationName')">
+              Enter organization name
+            </div>
+          </div>
+  
+          <!-- Contact Person Name -->
+          <div class="col-md-6 mb-3">
+            <label>Contact Person Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="contactPersonName" placeholder="Enter Contact Person Name"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('contactPersonName') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('contactPersonName')">
+              Enter contact person name
+            </div>
+          </div>
+  
+          <!-- Email -->
+          <div class="col-md-6 mb-3">
+            <label>Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('email') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+              Enter valid email
+            </div>
+          </div>
+  
+          <!-- Contact Number -->
+          <div class="col-md-6 mb-1">
+            <label>Contact Number <span class="text-danger">*</span></label>
+  
+            <ngx-intl-tel-input [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="false"
+              [searchCountryField]="[SearchCountryField.Name, SearchCountryField.DialCode]" [selectFirstCountry]="false"
+              [selectedCountryISO]="selectedCountryISO" [separateDialCode]="true" [maxLength]="15" name="phone"
+              formControlName="contactNumber"></ngx-intl-tel-input>
+            <div
+              *ngIf="profileForm.get('contactNumber')?.invalid && (profileForm.get('contactNumber')?.touched || formSubmitted)">
+              <small class="text-danger">Enter contact number</small>
+            </div>
+  
+          </div>
+  
+          <!-- Address -->
+          <div class="col-md-6 mb-3">
+            <label>Customer Type <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="customerType" placeholder="Enter Customer Type"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('customerType') }" [readonly]="true"/>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('customerType')">
+                Enter customer type
+            </div>
+          </div>
+          <!-- Address -->
+          <div class="col-md-6 mb-3">
+            <label>Plot No, Street Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="address" placeholder="Enter Plot No, Street Name"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('address') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('address')">
+              Enter address
+            </div>
+          </div>
+  
+          <!-- Country -->
+          <div class="col-md-6 mb-3">
+            <label>Country <span class="text-danger">*</span></label>
+            <ng-select [items]="countries" bindLabel="name" bindValue="id" [(ngModel)]="profileForm.value.country"
+              placeholder="Select Country" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="country" [ngClass]="{ 'is-invalid': isFieldInvalid('country') }" [readonly]="true">
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('country')">
+              Select country
+            </div>
+          </div>
+  
+          <!-- State -->
+          <div class="col-md-6 mb-3">
+            <label>State <span class="text-danger">*</span></label>
+            <ng-select [items]="states" bindLabel="name" bindValue="id" [(ngModel)]="profileForm.value.state"
+              placeholder="Select State" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="state" [ngClass]="{ 'is-invalid': isFieldInvalid('state') }">
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('state')">
+              Select state
+            </div>
+          </div>
+  
+          <!-- City -->
+          <div class="col-md-6 mb-3">
+            <label>City <span class="text-danger">*</span></label>
+            <ng-select [items]="cities" bindLabel="name" bindValue="id" [(ngModel)]="profileForm.value.city"
+              placeholder="Select City" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="city" [ngClass]="{ 'is-invalid': isFieldInvalid('city') }">
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('city')">
+              Select city
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Update</button>
+      </div>
+  
+    </form>
+  </div>
+  

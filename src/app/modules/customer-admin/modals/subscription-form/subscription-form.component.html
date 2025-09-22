@@ -1,0 +1,148 @@
+<div class="formStyle">
+    <!-- Modal Header -->
+    <div class="modal-header">
+        <h5 class="modal-title">
+            {{ mode === 'edit' ? 'Update Plan Details' : 'Add Plan Details' }}
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </div>
+
+    <!-- Form Start -->
+    <form [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <div class="row">
+                <!-- Plan Name -->
+                <div class="col-md-12 mb-2">
+                    <label>Plan Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="planName" maxlength="30"
+                        placeholder="Enter Plan Name" [ngClass]="{ 'is-invalid': isFieldInvalid('planName') }" />
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('planName')">
+                        Enter plan name
+                    </div>
+                </div>
+
+                <!-- Currency -->
+                <div class="col-md-12 mb-2">
+                    <label>Currency <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control disabled" formControlName="currency" maxlength="30"
+                        placeholder="Enter Currency" readonly
+                        [ngClass]="{ 'is-invalid': isFieldInvalid('currency') }" />
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('currency')">
+                        Enter currency
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="col-md-12 mb-2">
+                    <label>Price <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="price" placeholder="Enter Price"
+                        [ngClass]="{ 'is-invalid': isFieldInvalid('price') }" maxlength="30"
+                        pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('price')">
+                        Enter valid price (only numbers and 2 decimal places)
+                    </div>
+                </div>
+
+
+                <!-- Period -->
+                <div class="col-md-12 mb-2">
+                    <label>Period <span class="text-danger">*</span></label>
+                    <select class="form-control" formControlName="period"
+                        [ngClass]="{ 'is-invalid': isFieldInvalid('period') }">
+                        <option value="" disabled>Select Period</option>
+                        <option *ngFor="let period of periods" [value]="period.id">
+                            {{ period.period }}
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('period')">
+                        Select period
+                    </div>
+                </div>
+
+                <!-- Payment Provider -->
+                <div class="col-md-12 mb-2">
+                    <label>Payment Provider <span class="text-danger">*</span></label>
+                    <ng-select [items]="paymentProviders" bindLabel="payment_provider" bindValue="id"
+                        formControlName="paymentProvider" placeholder="Select Payment Provider" [searchable]="true"
+                        [clearable]="true" class="custom-currency-select"
+                        [ngClass]="{ 'is-invalid': isFieldInvalid('paymentProvider') }">
+
+                        <ng-template ng-label-tmp let-item="item">
+                            {{ item.payment_provider }}
+                        </ng-template>
+
+                        <ng-template ng-option-tmp let-item="item">
+                            {{ item.payment_provider }}
+                        </ng-template>
+                    </ng-select>
+
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('paymentProvider')">
+                        Select payment provider
+                    </div>
+                </div>
+
+                <!-- Multiple Descriptions -->
+                <div class="col-md-11 mb-2">
+                    <label>Description(s) <span class="text-danger">*</span></label>
+
+                    <!-- <div formArrayName="descriptions">
+                        <div *ngFor="let desc of descriptions.controls; let i = index" [formGroupName]="i"
+                            class="input-group mb-2">
+                            <input type="text" class="form-control" formControlName="description"
+                                placeholder="Enter description"
+                                [ngClass]="{ 'is-invalid': desc.get('description')?.invalid && (desc.get('description')?.touched || desc.get('description')?.dirty) }" />
+
+                            <button type="button" class="btn btn-outline-danger" (click)="removeDescription(i)"
+                                *ngIf="descriptions.length > 1">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div> -->
+
+                    <div formArrayName="descriptions">
+                        <div
+                          *ngFor="let desc of descriptions.controls; let i = index"
+                          [formGroupName]="i"
+                          class="mb-2 position-relative"
+                        >
+                          <input
+                            type="text"
+                            class="form-control pe-5"
+                            formControlName="description"
+                            placeholder="Enter description"
+                            [ngClass]="{
+                              'is-invalid':
+                                desc.get('description')?.invalid &&
+                                (desc.get('description')?.touched || desc.get('description')?.dirty)
+                            }"
+                          />
+                      
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-link text-danger position-absolute top-50  translate-middle-y me-2 delete-button-position-right delete-icon-size"
+                            (click)="removeDescription(i)"
+                            *ngIf="descriptions.length > 1"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
+                      </div>
+                      
+                    
+
+                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="addDescription()">
+                        <!-- <i class="bi bi-plus-circle"></i> --> Add Line
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="subscriptionForm.invalid">Save</button>
+        </div>
+    </form>
+</div>

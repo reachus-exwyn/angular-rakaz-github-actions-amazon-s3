@@ -1,0 +1,68 @@
+<div class="bodyContent">
+    <div class="tabBlock notificationTab">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <button ngbNavLink>Alert</button>
+                <ng-template ngbNavContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="bi bi-exclamation-triangle-fill alertIcon"></i>
+                        <div class="alert-text">
+                                <p>Message: A violation has been recorded against this customer: "hamad" on 19.03.2025.</p>
+                                <h5>Category: Violation</h5>
+                                <h6>19/03/2025, 06:13:47 PM</h6>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="bi bi-exclamation-triangle-fill alertIcon"></i>
+                        <div class="alert-text">
+                                <p>Message: A violation has been recorded against this customer: "hamad" on 19.03.2025.</p>
+                                <h5>Category: Violation</h5>
+                                <h6>19/03/2025, 06:13:47 PM</h6>
+                        </div>
+
+                        </div>
+                    </div>
+
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2" >
+                <button ngbNavLink>Warning</button>
+                <ng-template ngbNavContent >
+                            <div class="card warningTab">
+                        <div class="card-body">
+                            <i class="bi bi-exclamation-triangle-fill alertIcon"></i>
+                        <div class="alert-text">
+                                <p>Message: A violation has been recorded against this customer: "hamad" on 19.03.2025.</p>
+                                <h5>Category: Violation</h5>
+                                <h6>19/03/2025, 06:13:47 PM</h6>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card warningTab">
+                        <div class="card-body">
+                            <i class="bi bi-exclamation-triangle-fill alertIcon"></i>
+                        <div class="alert-text">
+                                <p>Message: A violation has been recorded against this customer: "hamad" on 19.03.2025.</p>
+                                <h5>Category: Violation</h5>
+                                <h6>19/03/2025, 06:13:47 PM</h6>
+                        </div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+
+        </ul>
+   
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    
+</div>
+</div>
+

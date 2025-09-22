@@ -1,0 +1,11 @@
+<div [ngSwitch]="selectedComponent.link">
+        <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
+    <app-customer-details *ngSwitchCase="'customer-details'"></app-customer-details>
+    <app-sensor-group *ngSwitchCase="'sensor-group'"></app-sensor-group>
+    <app-sensor-grouping *ngSwitchCase="'sensor-grouping'"></app-sensor-grouping>
+    <app-subscriptions *ngSwitchCase="'subscriptions'"></app-subscriptions>
+    <app-payments *ngSwitchCase="'payment-details'"></app-payments>
+    <app-reports *ngSwitchCase="'reports'"></app-reports>
+    <app-profile *ngSwitchCase="'profile'"></app-profile>
+  <div *ngSwitchDefault>Select a module</div>
+</div>

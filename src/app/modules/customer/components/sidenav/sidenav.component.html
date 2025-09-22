@@ -1,0 +1,61 @@
+<div class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-logo text-center">
+      <img src="assets/logo-icon.svg" width="40" alt="Logo" />
+    </div>
+  
+    <!-- Navigation Links -->
+    <div class="nav-icons flex-grow-1">
+      <a
+       
+        ngbTooltip="Customer Admin Details"
+        tooltipClass="tooltipCustom"
+       
+        [ngbTooltip]="link.tooltip"
+        container="body"
+        placement="right"
+    
+        class="nav-icon"  
+       
+        *ngFor="let link of navLinks"
+        (click)="navigateTo(link)"
+        [ngClass]="link.active"
+      >
+        <i [class]="link.icon"></i>
+      </a>   
+    </div>
+  
+    
+  
+    
+  
+    <!-- Bottom Icons -->
+    <div class="nav-icons-bottom">
+     
+      <a
+       
+        ngbTooltip="Notification"
+        tooltipClass="tooltipCustom"
+        container="body"
+        placement="right"
+        routerLinkActive="active"
+        class="nav-icon"
+        (click)="navigateTo(bottomNavLinks[1])"
+       
+      >
+        <i class="bi bi-bell"></i>
+      </a>
+      <a       
+        ngbTooltip="Profile"
+        tooltipClass="tooltipCustom"
+        container="body"
+        placement="right"
+        routerLinkActive="active"
+        class="nav-icon"
+        (click)="navigateTo(bottomNavLinks[2])"
+      
+      >
+        <i class="bi bi-person-circle"></i>
+      </a>
+    </div>
+  </div>

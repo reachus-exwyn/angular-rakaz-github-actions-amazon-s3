@@ -1,0 +1,356 @@
+<div class="headSection mt-2">
+    <div class="leftHeadSection">  
+        <div class="filterDateReport custom-filter-section">
+            <!-- <select class="form-select">
+                <option value="">Sensor Type</option>
+                <option value="" selected>Air</option>
+                <option value="">Water</option>                 
+            </select> -->
+            <div class="col-md-2">
+                <ng-select
+                [items]="sensorTypes"
+                bindLabel="name"
+                bindValue="id"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="false"
+                placeholder="Select Sensor Type"
+                [(ngModel)]="selectedSensorTypes"
+                class="ng-select-checkbox custom-ng-select isMultiSelect">
+                <ng-template ng-option-tmp let-item="item" let-index="index">
+                    <input type="checkbox" [checked]="selectedSensorTypes?.includes(item.id)" /> {{ item.name }}
+                </ng-template>
+            </ng-select>
+            </div>
+            <div class="col-md-2">
+                <ng-select
+                [items]="customers"
+                bindLabel="name"
+                bindValue="id"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [searchable]="true"
+                placeholder="Select Customer"
+                [(ngModel)]="selectedCustomers"
+                class="ng-select-checkbox custom-ng-select isMultiSelect">
+                <ng-template ng-option-tmp let-item="item" let-index="index">
+                    <input type="checkbox" [checked]="selectedCustomers?.includes(item.id)" /> {{ item.name }}
+                </ng-template>
+            </ng-select>
+            </div>
+        <div class="col-md-2">
+            <ng-select
+    [items]="groupedDeviceIds"
+    bindLabel="name"
+    bindValue="id"
+    groupBy="group"
+    [multiple]="true"
+    [closeOnSelect]="false"
+    [searchable]="true"
+    placeholder="Select Device Id"
+    [(ngModel)]="selectedDeviceIds"
+    class="ng-select-checkbox custom-ng-select isMultiSelect">
+    <ng-template ng-optgroup-tmp let-item="item" let-index="index">
+        <strong>{{ item.group }}</strong>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-index="index">
+        <input type="checkbox" [checked]="selectedDeviceIds?.includes(item.id)" /> {{ item.name }}
+    </ng-template>
+</ng-select>
+
+        </div>
+
+
+        
+
+
+            <div class="input-group">
+                <input
+                    class="form-control"
+                    placeholder="Start Date"
+                    name="dp"
+                    [(ngModel)]="model"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            </div>
+
+           <div class="input-group">
+        <input
+            class="form-control"
+            placeholder="End Date"
+            name="dp"
+            [(ngModel)]="model"
+            ngbDatepicker
+            #d="ngbDatepicker"
+        />
+        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+    </div>      
+            <button class="btn btn btn-primary"><i class="bi bi-funnel"></i> Apply</button>
+            <button class="btn btn btn-primary"><i class="bi bi-x-circle"></i> Clear</button>
+        </div>
+    </div>
+
+  </div>
+
+
+<div class="bodyContent">
+    <div class="paymentStatusBlock">
+        <h2>Payment Status</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="assets/hand-money.gif" alt="">
+                        <div class="ps-text">
+                            <p>Fine Received</p>
+                            <h3>AED 0</h3>
+                        </div>
+                        <button class="btn iconBtn"><i class="bi bi-eye-slash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="assets/time-money.gif" alt="">
+                        <div class="ps-text">
+                            <p>Fine Pending</p>
+                            <h3>AED 8050</h3>
+                        </div>
+                        <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="assets/hand-money.gif" alt="">
+                        <div class="ps-text">
+                            <p>Penalty Received</p>
+                            <h3>AED 0</h3>
+                        </div>
+                        <button class="btn iconBtn"><i class="bi bi-eye-slash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <img src="assets/time-money.gif" alt="">
+                        <div class="ps-text">
+                            <p>Penalty Pending</p>
+                            <h3>AED 4415.5</h3>
+                        </div>
+                        <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                    </div>
+                </div>
+            </div>
+
+   
+        </div>
+    </div>
+
+    <div class="mapBlock">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d926066.8532744745!2d55.20215!3d24.950846!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1752820983097!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Customer Liabilities</h2>
+                           </div> 
+                        <div class="tableBlock always-scroll">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Customer Name</th>
+                                        <th>Fine</th>
+                                        <th>Penalty</th>
+                                        <th>Device Status</th>                                           
+                                    </tr>
+                                </thead>
+                                <tbody>                                       
+                                    <tr>
+                                        <td>Majid</td>
+                                        <td>1800</td>
+                                        <td>910</td>
+                                        <td>
+                                            <div class="tableStatusActive">
+                                              <h4 class="activeTextStatus" ngbTooltip="Active" placement="top">3</h4>
+                                              <h4 class="inactiveTextStatus" ngbTooltip="Inactive" placement="top">0</h4>
+                                            </div>
+                                        </td> 
+                                    </tr>
+
+                                    <tr>
+                                        <td>Majid</td>
+                                        <td>1800</td>
+                                        <td>910</td>
+                                        <td>
+                                            <div class="tableStatusActive">
+                                              <h4 class="activeTextStatus" ngbTooltip="Active" placement="top">3</h4>
+                                              <h4 class="inactiveTextStatus" ngbTooltip="Inactive" placement="top">0</h4>
+                                            </div>
+                                        </td> 
+                                    </tr>
+
+                                    <tr>
+                                        <td>Majid</td>
+                                        <td>1800</td>
+                                        <td>910</td>
+                                        <td>
+                                            <div class="tableStatusActive">
+                                              <h4 class="activeTextStatus" ngbTooltip="Active" placement="top">3</h4>
+                                              <h4 class="inactiveTextStatus" ngbTooltip="Inactive" placement="top">0</h4>
+                                            </div>
+                                        </td> 
+                                    </tr>
+
+                                    <tr>
+                                        <td>Majid</td>
+                                        <td>1800</td>
+                                        <td>910</td>
+                                        <td>
+                                            <div class="tableStatusActive">
+                                              <h4 class="activeTextStatus" ngbTooltip="Active" placement="top">3</h4>
+                                              <h4 class="inactiveTextStatus" ngbTooltip="Inactive" placement="top">0</h4>
+                                            </div>
+                                        </td> 
+                                    </tr>
+                        
+                                </tbody>
+                            </table>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="overallDataWrapp mt-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                         <h2>Overall Data</h2>
+                        </div>
+
+                        <div class="paymentStatusBlock mt-0">                              
+                            <div class="row">                                  
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/time-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Sensor Groups</p>
+                                                <h3>4</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/hand-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Total Warnings</p>
+                                                <h3>42</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/time-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Total Violations</p>
+                                                <h3>12</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                       
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Device Status</h2>
+                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                           </div>                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overallDataWrapp mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Sensor Parameter Breached</h2>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Violations</h2>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="overallDataWrapp mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Parameter Reading</h2>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

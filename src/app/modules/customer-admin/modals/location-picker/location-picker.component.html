@@ -1,0 +1,36 @@
+<div class="formStyle">
+<div class="modal-header">
+  <h5 class="modal-title fw-bold">Select sensor location</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body position-relative">
+
+  <!-- Search box + OK button -->
+  <div class="d-flex mb-2">
+    <input #searchInput id="pac-input" type="text"
+           class="form-control me-2"
+           placeholder="Search location" />
+    <button class="btn btn-sm btn-custom-height btn-primary" (click)="confirmLocation()">OK</button>
+  </div>
+
+  <!-- Control buttons -->
+  <!-- <div class="d-flex flex-wrap gap-2 mb-2">
+    <button class="btn btn-secondary btn-sm" (click)="testPlacesAPI()">Test API</button>
+    <button class="btn btn-info btn-sm" (click)="testAPIKey()">Test API Key</button>
+    <button class="btn btn-warning btn-sm" (click)="testAutocompleteDropdown()">Test Dropdown</button>
+    <button class="btn btn-success btn-sm" (click)="reinitializeAutocomplete()">Reinit</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="getCurrentLocation()">
+      <i class="bi bi-geo-alt"></i> My Location
+    </button>
+  </div> -->
+
+  <!-- Instructions -->
+  <div class="map-instructions">
+    💡 <strong>Tip:</strong> Click anywhere on the map to place the marker, or search for a location above
+  </div>
+
+  <!-- Map -->
+  <div #mapContainer id="map" style="height: 400px; width: 100%;"></div>
+</div>
+</div>

@@ -1,0 +1,70 @@
+<div class="login-wrapper">
+  <div class="loginLogo text-center">
+    <img src="assets/rakaz-logo.png" alt="Logo" width="120" />
+  </div>
+    <div class="login-card">
+      <div class="login-left">
+    
+        <h2>Login to your Account</h2>
+        <p>Welcome Back! Please enter your details.</p>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="label">Username <span class="text-danger">*</span></label>
+            <div class="input-icon">
+              <i class="bi bi-person icon-left"></i>
+              <input formControlName="username" class="form-control" [ngClass]="{
+                'invalid-border': (submitted || form['username'].touched) && form['username'].invalid
+              }" placeholder="Username" />
+            </div>
+            <div *ngIf="submitted||(form['username'].touched && form['username'].invalid)">
+              <small class="form-text error-message" *ngIf="form['username'].errors">Enter Username</small>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label class="label">Password <span class="text-danger">*</span></label>
+            <div class="input-icon">
+              <i class="bi bi-lock icon-left"></i>
+              <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" class="form-control" [ngClass]="{
+                'invalid-border': (submitted || form['password'].touched) && form['password'].invalid
+              }"  placeholder="Password" />
+              <i class="toggle-eye bi" [ngClass]="hidePassword ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePassword()"></i>
+            </div>
+            <div *ngIf="submitted||(form['password'].touched && form['password'].invalid)">
+              <small class="form-text error-message" *ngIf="form['password'].errors">Enter Password</small>
+            </div>
+          </div>
+  
+          <button class="btn btn-primary w-100" type="submit">Login</button>
+        </form>
+      </div>
+  
+   
+
+      <div class="login-right">
+        <div class="item-right-svg-curved MuiBox-root css-0">
+          <svg viewBox="0 0 140 458" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none"><path d="M0,457.872705 L0,0 L0.575376462,0 L138.857137,401.599393 C140.295587,405.776957 138.075097,410.329636 133.897533,411.768087 L0,457.872705 Z" fill="#FFF"></path></svg>
+        </div>
+
+        <ngb-carousel>
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img src="assets/slide1.jpg" alt="" />
+            </div>           
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img src="assets/slide2.jpg" alt="" />
+            </div>           
+          </ng-template>
+          <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <img src="assets/slide3.jpg" alt="" />
+            </div>           
+          </ng-template>
+        </ngb-carousel>
+      </div>
+    </div>
+  </div>
+  

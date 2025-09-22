@@ -1,0 +1,64 @@
+<div class="formStyle">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{ mode === 'edit' ? 'Edit Device Mapping' : 'Add Device Mapping' }}
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+  
+    <!-- Form Start -->
+    <form [formGroup]="deviceMappingForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="modal-body">
+        <div class="row">
+  
+          <!-- Customer Admin Name -->
+          <div class="col-md-12 mb-2">
+            <label>Customer Admin Name <span class="text-danger">*</span></label>
+            <ng-select [items]="customerAdminList" bindLabel="customer_admin_name" bindValue="id" [(ngModel)]="selectedAdmin"
+              placeholder="Select Customer Admin" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="customerAdminName" [ngClass]="{ 'is-invalid': isFieldInvalid('customerAdminName') }">              
+            </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('customerAdminName')">
+            Customer Admin Name is required.
+          </div>
+            <!-- <select class="form-control" formControlName="customerAdminName" [ngClass]="{ 'is-invalid': isFieldInvalid('customerAdminName') }">
+              <option value="" disabled>Select Customer Admin</option>
+              <option *ngFor="let admin of customerAdminList" [value]="admin.id">{{ admin.name }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('customerAdminName')">
+              Customer Admin Name is required.
+            </div> -->
+          </div>
+  
+          <!-- Device ID -->
+          <div class="col-md-12 mb-2">
+            <label>Device ID <span class="text-danger">*</span></label>
+            <ng-select [items]="deviceList" bindLabel="deviceName" bindValue="id" [(ngModel)]="selectedDevice"
+              placeholder="Select Device" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="deviceId" [multiple]="true"
+              [closeOnSelect]="false" [ngClass]="{ 'is-invalid': isFieldInvalid('deviceId') }">              
+            </ng-select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceId')">
+              Device ID is required.
+            </div>
+            <!-- <select class="form-control" formControlName="deviceId" [ngClass]="{ 'is-invalid': isFieldInvalid('deviceId') }">
+              <option value="" disabled>Select Device</option>
+              <option *ngFor="let device of deviceList" [value]="device.id">{{ device.name }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceId')">
+              Device ID is required.
+            </div> -->
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="deviceMappingForm.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+  

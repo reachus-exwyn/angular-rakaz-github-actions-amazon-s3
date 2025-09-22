@@ -1,0 +1,187 @@
+<div class="formStyle">
+  <!-- Modal Header -->
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{ mode === 'edit' ? 'Edit Customer Admin' : 'Add Customer Admin' }}
+    </h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+  </div>
+
+  <!-- Form Start -->
+  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <div class="row">
+        <!-- Organization Name -->
+        <div class="col-md-6 mb-2">
+          <label>Organization Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="organizationName" maxlength="30"
+            placeholder="Enter Organization Name" [ngClass]="{ 'is-invalid': isFieldInvalid('organizationName') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('organizationName')">
+            Enter organization name
+          </div>
+        </div>
+
+        <!-- Contact Person Name -->
+        <div class="col-md-6 mb-2">
+          <label>Contact Person Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="contactPersonName" maxlength="30"
+            placeholder="Enter Contact Person Name" [ngClass]="{ 'is-invalid': isFieldInvalid('contactPersonName') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('contactPersonName')">
+            Enter contact person name
+          </div>
+        </div>
+
+        <!-- Customer Admin Name -->
+        <div class="col-md-6 mb-2">
+          <label>Customer Admin Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="adminName" placeholder="Enter Customer Admin Name"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('adminName') }" maxlength="30"
+            pattern="^[a-zA-Z0-9]{3,30}$" (input)="removeInvalidChars($event)"/>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('adminName')">
+            Enter valid customer admin name (only lowercase without space)
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6 mb-2">
+          <label>Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('email') }" maxlength="30"/>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+            Enter email
+          </div>
+        </div>
+
+        <!-- Contact Number -->
+        <div class="col-md-6 mb-2">
+          <label>Contact Number <span class="text-danger">*</span></label>
+
+          <ngx-intl-tel-input [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="false"
+            [searchCountryField]="[SearchCountryField.Name, SearchCountryField.DialCode]" [selectFirstCountry]="false"
+            [selectedCountryISO]="selectedCountryISO" [separateDialCode]="true" [maxLength]="15" name="phone"
+            formControlName="contactNumber"></ngx-intl-tel-input>
+
+
+
+          <div
+            *ngIf="adminForm.get('contactNumber')?.invalid && (adminForm.get('contactNumber')?.touched || formSubmitted)">
+            <small class="text-danger">Enter contact number</small>
+          </div>
+
+        </div>
+
+        <!-- Customer Admin Type -->
+        <div class="col-md-6 mb-2">
+          <label>Customer Admin Type <span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="adminType"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('adminType') }">
+            <option value="" disabled [selected]="!adminForm.get('adminType')?.value" class="placeholder-option">Select
+              Admin Type</option>
+            <option *ngFor="let adminType of customerAdminTypes" [value]="adminType.id">{{ adminType.cust_admin_type }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('adminType')">
+            Select customer admin type
+          </div>
+        </div>
+
+        <!-- Currency -->
+        <div class="col-md-6 mb-2">
+          <label>Currency <span class="text-danger">*</span></label>
+          <ng-select
+          [items]="currencyList"
+          bindLabel="country"
+          bindValue="code"
+          [(ngModel)]="selectedCurrency"
+          placeholder="Select Currency"
+          [searchable]="true"
+          [clearable]="true"
+          class="custom-currency-select"
+          formControlName="currency" [ngClass]="{ 'is-invalid': isFieldInvalid('currency') }"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <!-- <span class="fi fi-{{ item.code }}"></span> -->
+            {{ item.code }}
+          </ng-template>
+        
+          <ng-template ng-option-tmp let-item="item">
+            <span class="fi fi-{{ item.country_code.toLowerCase() }} mr-2"></span>
+            {{ item.country }} ({{ item.code }})
+          </ng-template>
+        </ng-select>
+       
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('currency')">
+              Select currency
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6 mb-2" *ngIf="mode === 'create'">
+          <label>Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Enter Password"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('password') }" maxlength="30"/>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('password')">
+            Enter password
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-6 mb-2">
+          <label>Plot No, Street Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="address" placeholder="Enter Plot No, Street Name"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('address') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('address')">
+            Enter plot no, street name
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="col-md-6 mb-2">
+          <label>Country <span class="text-danger">*</span></label>
+          <!-- <input type="text" class="form-control" formControlName="country" placeholder="Enter Country"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('country') }" /> -->
+            <ng-select [items]="countries" bindLabel="name" bindValue="id" [(ngModel)]="selectedCountry"
+              placeholder="Select Country" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="country" [ngClass]="{ 'is-invalid': isFieldInvalid('country') }" (change)="getStates()">              
+            </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('country')">
+            Select country
+          </div>
+        </div>
+
+         <!-- State -->
+         <div class="col-md-6 mb-2" *ngIf="selectedCountry">
+          <label>State <span class="text-danger">*</span></label>
+            <ng-select [items]="states" bindLabel="name" bindValue="id" [(ngModel)]="selectedState"
+              placeholder="Select State" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="state" [ngClass]="{ 'is-invalid': isFieldInvalid('state') }" (change)="getCities()">              
+            </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('state')">
+            Select state
+          </div>
+        </div>
+
+        <!-- City -->
+        <div class="col-md-6 mb-2" *ngIf="selectedState">
+          <label>City <span class="text-danger">*</span></label>
+            <ng-select [items]="cities" bindLabel="name" bindValue="id" [(ngModel)]="selectedCity"
+              placeholder="Select City" [searchable]="true" [clearable]="true" class="custom-currency-select"
+              formControlName="city" [ngClass]="{ 'is-invalid': isFieldInvalid('city') }">              
+            </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('city')">
+            Select city
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="adminForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

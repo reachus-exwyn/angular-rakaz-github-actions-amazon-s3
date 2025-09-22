@@ -1,0 +1,80 @@
+<div class="loader-examples-container">
+  <div class="header">
+    <h2>Loader Examples</h2>
+    <p>Demonstration of different loader types, sizes, and colors using the project's color scheme.</p>
+  </div>
+
+  <div class="examples-grid">
+    <!-- Spinner Examples -->
+    <div class="example-section">
+      <h3>Spinner Loaders</h3>
+      <div class="button-group">
+        <button class="btn btn-outline-primary" (click)="showSpinnerSmall()">Small Spinner</button>
+        <button class="btn btn-outline-primary" (click)="showSpinnerMedium()">Medium Spinner</button>
+        <button class="btn btn-outline-primary" (click)="showSpinnerLarge()">Large Spinner</button>
+      </div>
+    </div>
+
+    <!-- Different Types -->
+    <div class="example-section">
+      <h3>Loader Types</h3>
+      <div class="button-group">
+        <button class="btn btn-outline-primary" (click)="showDots()">Dots</button>
+        <button class="btn btn-outline-primary" (click)="showPulse()">Pulse</button>
+        <button class="btn btn-outline-primary" (click)="showBars()">Bars</button>
+        <button class="btn btn-outline-primary" (click)="showRipple()">Ripple</button>
+        <button class="btn btn-outline-primary" (click)="showSkeleton()">Skeleton</button>
+      </div>
+    </div>
+
+    <!-- Color Examples -->
+    <div class="example-section">
+      <h3>Color Variations</h3>
+      <div class="button-group">
+        <button class="btn btn-outline-primary" (click)="showPrimaryColor()">Primary</button>
+        <button class="btn btn-outline-primary" (click)="showSecondaryColor()">Secondary</button>
+        <button class="btn btn-outline-primary" (click)="showWhiteColor()">White</button>
+        <button class="btn btn-outline-primary" (click)="showLightColor()">Light</button>
+      </div>
+    </div>
+
+    <!-- Special Examples -->
+    <div class="example-section">
+      <h3>Special Cases</h3>
+      <div class="button-group">
+        <button class="btn btn-outline-primary" (click)="showFullScreen()">Full Screen</button>
+        <button class="btn btn-outline-primary" (click)="simulateHttpRequest()">HTTP Request</button>
+      </div>
+    </div>
+
+    <!-- Inline Examples -->
+    <div class="example-section">
+      <h3>Inline Loaders</h3>
+      <div class="inline-examples">
+        <div class="inline-example">
+          <h4>Inline Spinner:</h4>
+          <button class="btn btn-outline-primary" (click)="showInlineSpinner()">Show</button>
+        </div>
+        <div class="inline-example">
+          <h4>Inline Dots:</h4>
+          <button class="btn btn-outline-primary" (click)="showInlineDots()">Show</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline Loader Display Area -->
+  <div class="inline-display-area">
+    <h3>Inline Loader Display Area</h3>
+    <div class="display-box">
+      <p>Click the inline loader buttons above to see loaders appear here.</p>
+      <app-loader 
+        type="spinner" 
+        size="small" 
+        color="primary" 
+        text="This is a static inline loader example"
+        [overlay]="false">
+      </app-loader>
+    </div>
+  </div>
+</div>

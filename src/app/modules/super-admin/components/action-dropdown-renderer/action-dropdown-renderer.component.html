@@ -1,0 +1,17 @@
+<div ngbDropdown (click)="onClick($event)" class="d-inline-block" container="body">
+  <button
+    class="btn btn-sm btn-outline-primary custom-dropdown-btn"
+    id="dropdownBasic1"
+    ngbDropdownToggle
+  >
+  <i class="bi bi-three-dots-vertical"></i>
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-custom">
+    <button ngbDropdownItem (click)="edit()">
+      <i class="bi bi-pencil-square me-2"></i> Edit
+    </button>
+    <button ngbDropdownItem (click)="delete()">
+      <i class="bi bi-trash3 me-2"></i> Delete
+    </button>
+  </div>
+</div>

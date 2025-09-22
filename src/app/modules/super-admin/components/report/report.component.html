@@ -1,0 +1,83 @@
+<div class="headSection">
+    <div class="leftHeadSection">
+        <form [formGroup]="reportForm" (ngSubmit)="onSubmit($event)" novalidate>
+            <div class="filterDateReport d-flex align-items-center gap-2" style="flex-wrap: nowrap;">
+                <!-- Form Start -->
+
+                <!-- Report Type -->
+                <ng-select class="form-select" style="width: 180px;" [items]="reportTypes" bindLabel="reporttype"
+                    bindValue="id" [(ngModel)]="selectedReportType" [multiple]="false" [closeOnSelect]="true"
+                    [searchable]="true" [clearable]="true" placeholder="Select Report Type" formControlName="reportType"
+                    [ngClass]="{ 'is-invalid': isFieldInvalid('reportType') }"
+                    class="ng-select-checkbox custom-ng-select" (change)="hideAdminsAndDatePicker()">
+                </ng-select>
+                <!-- Customer Admin -->
+                <ng-select *ngIf="selectedReportType == 1 || selectedReportType == 3" class="form-select" style="width: 180px;" [items]="customerAdmins"
+                    bindLabel="customer_admin_name" bindValue="id" [(ngModel)]="selectedCustomerAdmin"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [clearable]="true"
+                    placeholder="Select Customer Admin" formControlName="customerAdmin"
+                    [ngClass]="{ 'is-invalid': isFieldInvalid('customerAdmin') }"
+                    class="ng-select-checkbox custom-ng-select">
+                </ng-select>
+
+                <!-- Date Range Picker -->
+                <input *ngIf="selectedReportType == 1 || selectedReportType == 3" type="text" ngxDaterangepickerMd [(ngModel)]="selected" formControlName="dateRange"
+                    [timePicker]="true" [timePicker24Hour]="true" [showCustomRangeLabel]="true"
+                    [alwaysShowCalendars]="true" [ranges]="ranges" [linkedCalendars]="false"
+                    placeholder="Select Date & Time Range" (datesUpdated)="updateDateRange($event)"
+                    class="form-control roundedCorners dateLimtTo" />
+
+                <!-- Get Report Button -->
+                <button class="btn btn-sm btn-primary btn-custom" name="action" value="save"
+                    style="white-space: nowrap;">
+                    Get Report
+                </button>
+
+                <!-- Share Button -->
+                <button class="btn outline-primaryBt" name="action" value="share" style="white-space: nowrap;">
+                    Share <i class="bi bi-share"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="rightHeadSection">
+        <div class="searchBlock">
+            <i class="bi bi-search"></i>
+            <input type="text" class="formControlSearch" [placeholder]="SearchPlaceHolder" (input)="onQuickFilterChanged($event)" />
+        </div>
+    </div>
+</div>
+<div class="bodyContent">
+
+    <ag-grid-angular style="width: 100%;" class="ag-theme-alpine ag-rakz-custom" [theme]="'legacy'" [rowData]="rowData"
+        [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="pageSize"
+        [paginationPageSizeSelector]="pageSizeSelector" domLayout="autoHeight"
+        (paginationChanged)="onPaginationChanged()" (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+
+</div>
+<!-- Modal Start -->
+<ng-template #viewDeviceParameterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">View Device Parameter</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+           <div class="row">
+                <div class="col-md-12 ">
+                    <div class=" pull-right">
+                        <div class="searchBlock mb-3">
+                            <i class="bi bi-search"></i>
+                            <input type="text" class="formControlSearch" placeholder="Search" (input)="searchParameter($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ag-grid-angular class="ag-theme-alpine ag-rakz-custom" [theme]="'legacy'" [rowData]="rowDataParameter"
+                [columnDefs]="columnDefsParameter" [defaultColDef]="defaultColDef" [pagination]="true" [paginationPageSize]="pageSize"
+                [paginationPageSizeSelector]="pageSizeSelector" domLayout="autoHeight" [paginationAutoPageSize]="true" (paginationChanged)="onPaginationChanged()"
+                ></ag-grid-angular>
+    </div>        
+</ng-template>
+
+<!-- Modal End -->

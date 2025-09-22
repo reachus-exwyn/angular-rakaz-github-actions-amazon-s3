@@ -1,0 +1,90 @@
+<div [class]="overlayClasses" *ngIf="overlay">
+  <div [class]="loaderClasses">
+    <!-- Spinner Loader -->
+    <div class="spinner-loader" *ngIf="type === 'spinner'">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Dots Loader -->
+    <div class="dots-loader" *ngIf="type === 'dots'">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <!-- Pulse Loader -->
+    <div class="pulse-loader" *ngIf="type === 'pulse'">
+      <div class="pulse"></div>
+    </div>
+
+    <!-- Bars Loader -->
+    <div class="bars-loader" *ngIf="type === 'bars'">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- Ripple Loader -->
+    <div class="ripple-loader" *ngIf="type === 'ripple'">
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+    </div>
+
+    <!-- Skeleton Loader -->
+    <div class="skeleton-loader" *ngIf="type === 'skeleton'">
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+    </div>
+
+    <!-- Loading Text -->
+    <div class="loader-text" *ngIf="text">{{ text }}</div>
+  </div>
+</div>
+
+<!-- Inline Loader (without overlay) -->
+<div [class]="loaderClasses" *ngIf="!overlay">
+  <!-- Spinner Loader -->
+  <div class="spinner-loader" *ngIf="type === 'spinner'">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Dots Loader -->
+  <div class="dots-loader" *ngIf="type === 'dots'">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- Pulse Loader -->
+  <div class="pulse-loader" *ngIf="type === 'pulse'">
+    <div class="pulse"></div>
+  </div>
+
+  <!-- Bars Loader -->
+  <div class="bars-loader" *ngIf="type === 'bars'">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- Ripple Loader -->
+  <div class="ripple-loader" *ngIf="type === 'ripple'">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+  </div>
+
+  <!-- Skeleton Loader -->
+  <div class="skeleton-loader" *ngIf="type === 'skeleton'">
+    <div class="skeleton-line"></div>
+    <div class="skeleton-line"></div>
+    <div class="skeleton-line"></div>
+  </div>
+
+  <!-- Loading Text -->
+  <div class="loader-text" *ngIf="text">{{ text }}</div>
+</div>

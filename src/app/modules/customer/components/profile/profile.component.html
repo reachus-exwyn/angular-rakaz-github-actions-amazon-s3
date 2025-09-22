@@ -1,0 +1,204 @@
+
+<div class="headingBlock headingprofile">
+    <div class="headingprofile-left">
+        <i class="bi bi-person-circle"></i>
+         <h1 style="text-transform: capitalize;">{{userData.ContactPersonName}}</h1>
+    </div>
+    <div class="headingprofile-right">
+         <button class="btn btn-outline-primary" (click)="updateProfile('edit',userDataForEdit)"><i class="bi bi-pencil-square"></i> Edit</button>
+         <button class="btn btn-primary " (click)="openModal(logoutModal, 'sm')"><i class="bi bi-door-closed"></i> Logout</button>
+    </div>
+
+    <!-- (click)="openModal(logoutModal, 'sm')" -->
+</div>
+
+<div class="bodyContent">
+    <div class="row profileRow">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="name">User ID</label>
+                <span>:</span>
+               <h6>{{userData.UserId}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Contact Person </label>
+                <span>:</span>
+               <h6>{{userData.ContactPersonName}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Mobile Number</label>
+                <span>:</span>
+               <h6>{{userData.MobileNumber}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Email</label>
+                <span>:</span>
+               <h6>{{userData.Email}}</h6>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="name">Organization Name</label>
+                <span>:</span>
+               <h6>{{userData.OrgName}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Business Type </label>
+                <span>:</span>
+               <h6>{{userData.BusinessType}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Currency</label>
+                <span>:</span>
+               <h6>{{userData.Currency}}</h6>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Address</label>
+                <span>:</span>
+               <h6>{{userData.Address}}</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabBlock profileTab">
+        <div class="card">
+
+            <!-- [(activeId)]="active" -->
+            <ul ngbNav #nav="ngbNav"  class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink href="javascript:void(0)" class="nav-link">Settings</a>
+                    <ng-template ngbNavContent>
+                    
+                            <div class="mt-4">
+                                <h3>Notification</h3>
+                                
+                                <div class="pushNotiGroup">
+                                    <div class="form-group">
+                                        <label for="name">Push Notification :</label>
+                                        <p>Receive notifications from Rakaz on your PC.</p>
+                                    </div>
+
+
+                                    <div class="form-check form-switch">
+                                        <label class="form-check-label">OFF</label>
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          id="customSwitch"
+                                          
+                                        />
+                                        <label class="form-check-label" for="customSwitch">ON</label>
+                                      </div>
+
+                                </div>
+
+
+                            </div>
+                    
+                    </ng-template>
+                </li>
+
+
+                <li [ngbNavItem]="2" >
+                    <a ngbNavLink href="javascript:void(0)" class="nav-link">Change Password</a>
+                    <ng-template ngbNavContent >
+                        <form class="formStyle mt-4" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+                        <div class="row changePassGroup">
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="currentPassword" placeholder="" formControlName="currentPassword" [ngClass]="{ 'is-invalid': isFieldInvalid('currentPassword') }">
+                                    <div class="invalid-feedback" *ngIf="isFieldInvalid('currentPassword')">
+                                        {{ getFieldError('currentPassword') }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="newPassword">New Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="" formControlName="newPassword" [ngClass]="{ 'is-invalid': isFieldInvalid('newPassword') }">
+                                <div class="invalid-feedback" *ngIf="isFieldInvalid('newPassword')">
+                                    {{ getFieldError('newPassword') }}
+                                </div>
+                                <!-- Password requirements info -->
+                                <div class="password-info mt-2" *ngIf="changePasswordForm.get('newPassword')?.value && !allRequirementsMet()">
+                                    <small class="text-info">
+                                        <i class="bi bi-info-circle"></i>
+                                        Password must contain: {{ getFirstUnmetRequirement() }}
+                                    </small>
+                                </div>
+                                <!-- Success message when all requirements met -->
+                                <div class="password-success mt-2" *ngIf="changePasswordForm.get('newPassword')?.value && allRequirementsMet()">
+                                    <small class="text-success">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Password meets all requirements
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': isFieldInvalid('confirmPassword') || (changePasswordForm.errors?.['passwordMismatch'] && changePasswordForm.get('confirmPassword')?.touched) }">
+                                <div class="invalid-feedback" *ngIf="isFieldInvalid('confirmPassword')">
+                                    {{ getFieldError('confirmPassword') }}
+                                </div>
+                                <div class="invalid-feedback" *ngIf="changePasswordForm.errors?.['passwordMismatch'] && changePasswordForm.get('confirmPassword')?.touched && !isFieldInvalid('confirmPassword')">
+                                    Passwords do not match
+                                </div>
+                                <!-- Password match indicator -->
+                                <div class="password-match-indicator mt-1" *ngIf="changePasswordForm.get('confirmPassword')?.value && changePasswordForm.get('newPassword')?.value && !isFieldInvalid('confirmPassword') && !changePasswordForm.errors?.['passwordMismatch']">
+                                    <small [class.text-success]="passwordsMatch()" [class.text-danger]="!passwordsMatch()">
+                                        <i class="bi" [class.bi-check-circle-fill]="passwordsMatch()" [class.bi-x-circle-fill]="!passwordsMatch()"></i>
+                                        {{ passwordsMatch() ? 'Passwords match' : 'Passwords do not match' }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-outline-primary">Cancel</button>
+                                <button type="Submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    </form>
+                    </ng-template>
+                </li>
+
+            </ul>   
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+    </div>
+      
+
+
+    <ng-template #logoutModal let-modal>
+
+        <div class="modal-body">
+            <form class="formStyle mt-2">
+             <h6>Are you sure want to Logout?</h6>
+                
+            </form>
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-outline-primary " (click)="modal.close('Save click')">No</button>
+            <button type="button" class="btn btn-primary" (click)="logout()">Yes</button>
+        </div>
+    </ng-template>
+
+
+</div>

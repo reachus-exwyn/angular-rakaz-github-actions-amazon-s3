@@ -1,0 +1,13 @@
+<div class="admin-layout d-flex">
+   
+    <!-- Sidebar -->
+    <app-sidenav (linkSelected)="onSidebarSelection($event)" ></app-sidenav>
+  
+    <!-- Right Content -->
+    <div class="flex-grow-1 content-area">
+      <!-- <router-outlet></router-outlet> -->
+        <!-- Header -->
+    <app-header [selectedHeader]="selectedComponent"></app-header>
+    <app-content [selectedComponent]="selectedComponent"></app-content>
+    </div>
+  </div>

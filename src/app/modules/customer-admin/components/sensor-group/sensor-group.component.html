@@ -1,0 +1,134 @@
+<div class="headSection">
+    <div class="leftHeadSection">
+    </div>
+    <div class="rightHeadSection">
+        <div class="searchBlock">
+            <i class="bi bi-search"></i>
+            <input
+          type="text"
+          class="formControlSearch"
+          placeholder="Search"
+          (input)="searchSensorGroup($event)"
+        />
+        </div>
+
+        <button class="btn outline-primaryBt" (click)="openSensorGroupModal('create')">Add Sensor Group</button>
+        <!-- (click)="openModal(addSensorModal, 'xl')" -->
+    </div>
+</div>
+<div class="bodyContent sensorParaManWrapp">
+    <div class="row mt-4 justify-content-md-center">
+
+        <ng-container *ngFor="let sensorGroup of sensorGroups">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="cardImgSPM">
+                        <img src="{{sensorGroup.sensor_name === 'Water' ? 'assets/water-img.jpg' : 'assets/air-img.jpg'}}"
+                            alt="noise" class="img-fluid">
+                    </div>
+
+                    <div class="card-body">
+                        <img src="{{sensorGroup.sensor_name === 'Water' ? 'assets/water-icon.jpg' : 'assets/air-icon.jpg'}}"
+                            alt="noise" class="noiseIconSPM">
+                        <h5 class="card-title text-center">{{sensorGroup.sensor_group_name}}</h5>
+                        <div class="sPMcardBt">
+                            <button class="btn textPrimaryBt"
+                                (click)="openViewModal(noiseViewModal, sensorGroup)">View</button>
+                            <button class="btn textPrimaryBt"
+                                (click)="openSensorGroupModal('edit', sensorGroup)">Update</button>
+                            <button class="btn textPrimaryBt"
+                                (click)="deleteSensorGroup(sensorGroup)">Delete</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+        <!-- <div class="col-md-3">
+                <div class="card">
+                    <img src="assets/water-img.jpg" alt="noise" class="cardImgSPM">
+                    <div class="card-body">
+                        <img src="assets/water-icon.jpg" alt="noise" class="noiseIconSPM">
+                        <h5 class="card-title text-center">Wat Sg Demo- 1</h5>
+                        <div class="sPMcardBt">
+                            <button class="btn textPrimaryBt" >View</button>
+                            <button class="btn textPrimaryBt">Update</button>
+                            <button class="btn textPrimaryBt">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="assets/air-img.jpg" alt="noise" class="cardImgSPM">
+                    <div class="card-body">
+                        <img src="assets/air-icon.jpg" alt="noise" class="noiseIconSPM">
+                        <h5 class="card-title text-center">Air Sensor Group-1</h5>
+                        <div class="sPMcardBt">
+                            <button class="btn textPrimaryBt">View</button>
+                            <button class="btn textPrimaryBt">Update</button>
+                            <button class="btn textPrimaryBt">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="assets/air-img.jpg" alt="noise" class="cardImgSPM">
+                    <div class="card-body">
+                        <img src="assets/air-icon.jpg" alt="noise" class="noiseIconSPM">
+                        <h5 class="card-title text-center">Air Sensor Group</h5>
+                        <div class="sPMcardBt">
+                            <button class="btn textPrimaryBt">View</button>
+                            <button class="btn textPrimaryBt">Update</button>
+                            <button class="btn textPrimaryBt">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="assets/air-img.jpg" alt="noise" class="cardImgSPM">
+                    <div class="card-body">
+                        <img src="assets/air-icon.jpg" alt="noise" class="noiseIconSPM">
+                        <h5 class="card-title text-center">Air Sensor Group-2</h5>
+                        <div class="sPMcardBt">
+                            <button class="btn textPrimaryBt">View</button>
+                            <button class="btn textPrimaryBt">Update</button>
+                            <button class="btn textPrimaryBt">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+    </div>
+</div>
+
+<ng-template #noiseViewModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{selectedSensorGroup}} Sensor Parameter Details</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class=" pull-right">
+                    <div class="searchBlock mb-3">
+                        <i class="bi bi-search"></i>
+                        <input type="text" class="formControlSearch" placeholder="Search"
+                            (input)="searchParameter($event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ag-grid-angular style="width: 100%;" class="ag-theme-alpine ag-rakz-custom" [theme]="'legacy'"
+            [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [pagination]="true"
+            [paginationPageSize]="pageSize" [paginationPageSizeSelector]="pageSizeSelector" domLayout="autoHeight"
+            [paginationAutoPageSize]="true" (paginationChanged)="onPaginationChanged()"></ag-grid-angular>
+    </div>
+</ng-template>

@@ -1,0 +1,129 @@
+<div class="formStyle">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{ mode === 'edit' ? 'Edit Sensor' : 'Add Sensor' }}
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </div>
+  
+    <!-- Form Start -->
+    <form [formGroup]="sensorForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="row">
+  
+          <!-- Sensor Type -->
+          <div class="col-md-12 mb-2">
+            <label>Sensor Type <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="sensorType" placeholder="Sensor Type"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('sensorType') }" [disabled]="mode === 'edit'"/>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('sensorType')">
+              Sensor Type is required.
+            </div>
+          </div>
+  
+          <div formArrayName="parameters">
+            <div *ngFor="let param of parameters.controls; let i = index" [formGroupName]="i" class="row">
+              <!-- Sensor Parameter -->
+              <div class="col-md-6 mb-2">
+                <label>Sensor Parameter <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="sensorParameter" placeholder="Sensor Parameter"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('sensorParameter', i) }" [disabled]="mode === 'edit'"/>
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('sensorParameter', i)">
+                  Sensor Parameter is required.
+                </div>
+              </div>
+          
+              <!-- Unit -->
+              <div class="col-md-6 mb-2">
+                <label>Unit <span class="text-danger">*</span></label>
+                <select class="form-control" formControlName="unit" [ngClass]="{ 'is-invalid': isFieldInvalid('unit', i) }" [disabled]="mode === 'edit'">
+                  <option value="" disabled>Select Unit</option>
+                  <option *ngFor="let unit of units" [value]="unit">
+                    {{ unit }}
+                  </option>
+                </select>
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('unit', i)">
+                  Unit is required.
+                </div>
+              </div>
+          
+              <!-- Min Threshold -->
+              <div class="col-md-6 mb-2">
+                <label>Min Threshold Limit <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="minThreshold" placeholder="Min Threshold Limit"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('minThreshold', i) }" />
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('minThreshold', i)">
+                  Min Threshold is required.
+                </div>
+              </div>
+          
+              <!-- Max Threshold -->
+              <div class="col-md-6 mb-2">
+                <label>Max Threshold Limit <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="maxThreshold" placeholder="Max Threshold Limit"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('maxThreshold', i) }" />
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('maxThreshold', i)">
+                    <ng-container *ngIf="parameters.at(i).errors?.['maxThreshold']; else requiredMaxThreshold">
+                      {{ parameters.at(i).errors?.['maxThreshold'] }}
+                    </ng-container>
+                    <ng-template #requiredMaxThreshold>
+                      Max Threshold is required.
+                    </ng-template>
+                  </div>
+                               
+              </div>
+          
+              <!-- Index Start -->
+              <div class="col-md-6 mb-2">
+                <label>Index Start <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="indexStart" placeholder="Index Start"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('indexStart', i) }" />
+                <div class="invalid-feedback" *ngIf="isFieldInvalid('indexStart', i)">
+                  Index Start is required.
+                </div>
+              </div>
+          
+              <!-- Index End -->
+              <div class="col-md-6 mb-2">
+                <label>Index End <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" formControlName="indexEnd" placeholder="Index End"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('indexEnd', i) }" />
+                  <div class="invalid-feedback" *ngIf="isFieldInvalid('indexEnd', i)">
+                    <ng-container *ngIf="parameters.at(i).errors?.['indexEnd']; else requiredIndexEnd">
+                      {{ parameters.at(i).errors?.['indexEnd'] }}
+                    </ng-container>
+                    <ng-template #requiredIndexEnd>
+                      Index End is required.
+                    </ng-template>
+                  </div>
+                  
+              </div>
+          
+              <!-- Remove Button -->
+              <div class="col-12 mb-3 text-end" *ngIf="parameters.length > 1">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeParameter(i)">Remove</button>
+              </div>
+          
+              <hr class="my-2" />
+            </div>
+          </div>
+          
+  
+          <!-- Add Parameter Button -->
+          <div class="col-12 mb-3">
+            <button class="btn btn-outline-secondary" type="button" (click)="addParameter()">Add Parameter</button>
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="sensorForm.invalid">{{mode === 'edit' ? 'Update' : 'Save'}}</button>
+      </div>
+    </form>
+  </div>
+

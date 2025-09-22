@@ -1,0 +1,88 @@
+.search-box {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: 70%;
+  }
+
+// Control buttons styling
+.control-buttons {
+  .btn {
+    margin-bottom: 0.25rem;
+  }
+}
+
+// Map instructions
+.map-instructions {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+// Ensure Google Places autocomplete dropdown is visible
+:host ::ng-deep .pac-container {
+  z-index: 9999 !important;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  font-family: inherit;
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: 400px !important;
+  background: white !important;
+  display: block !important;
+}
+
+:host ::ng-deep .pac-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+:host ::ng-deep .pac-item:hover {
+  background-color: #f5f5f5;
+}
+
+:host ::ng-deep .pac-item-selected {
+  background-color: #e3f2fd;
+}
+
+:host ::ng-deep .pac-item-query {
+  font-weight: bold;
+  color: #333;
+}
+
+:host ::ng-deep .pac-matched {
+  font-weight: bold;
+  color: #1976d2;
+}
+
+// Ensure the search input has proper z-index and positioning
+#pac-input {
+  position: relative;
+  z-index: 1000;
+  background: white;
+}
+
+// Force the modal to have proper z-index
+.modal {
+  z-index: 1050;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}
+
+// Ensure the modal body has proper positioning
+.modal-body {
+  position: relative;
+  z-index: 1051;
+}
+  

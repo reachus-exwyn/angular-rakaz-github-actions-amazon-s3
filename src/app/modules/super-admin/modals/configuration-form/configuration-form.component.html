@@ -1,0 +1,126 @@
+<div class="formStyle">
+  <div class="modal-header">
+    <h5 class="modal-title">Configuration</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <!-- Customer Admin Type Form -->
+    <form [formGroup]="customerAdminTypeForm">
+      <div class="form-group">
+        <label>Customer Admin Type <span class="text-danger">*</span></label>
+        <div class="d-flex gap-2">
+          <input
+            type="text"
+            formControlName="customerAdminType"
+            placeholder="Enter Customer Admin Type"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                customerAdminTypeForm.get('customerAdminType')?.invalid &&
+                customerAdminTypeForm.get('customerAdminType')?.touched
+            }"
+          />
+          <button
+            type="button"
+            (click)="addCustomerAdminType()"
+            class="btn btn-sm btn-primary btn-custom-height"
+          >
+            Add
+          </button>
+        </div>
+        
+        <div
+          class="text-danger"
+          *ngIf="
+            customerAdminTypeForm.get('customerAdminType')?.invalid &&
+            customerAdminTypeForm.get('customerAdminType')?.touched
+          "
+        >
+          Customer Admin Type is required.
+        </div>
+        <label class="mt-2">Delete Customer Admin Type</label>
+        <div class="d-flex gap-2">
+           
+          <ng-select
+            [items]="customerAdminTypes"
+            bindLabel="cust_admin_type"
+            bindValue="id"
+            [(ngModel)]="selectedCustomerAdminTypes"
+            [ngModelOptions]="{ standalone: true }"
+            [multiple]="true"
+            placeholder="Select to delete"
+            class="custom-currency-select ng-select-width-100"
+          ></ng-select>
+          <button
+                type="button"
+                (click)="deleteSelectedCustomerAdminTypes()"
+                class="btn btn-danger btn-no-bg d-flex align-items-center justify-content-center btn-custom-height"
+               
+            >
+            <!-- [disabled]="selectedCustomerAdminTypes.length === 0" -->
+                <i class="bi bi-trash"></i>
+            </button>
+        </div>
+      </div>
+    </form>
+
+    <hr />
+
+    <!-- Unit Form -->
+    <form [formGroup]="unitForm">
+      <div class="form-group">
+        <label>Units <span class="text-danger">*</span></label>
+        <div class="d-flex gap-2">
+          <input
+            type="text"
+            formControlName="unit"
+            placeholder="Enter Unit"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                unitForm.get('unit')?.invalid && unitForm.get('unit')?.touched
+            }"
+          />
+          <button type="button" (click)="addUnit()" class="btn btn-primary btn-custom-height">
+            Add
+          </button>
+        </div>
+        <div
+          class="text-danger"
+          *ngIf="unitForm.get('unit')?.invalid && unitForm.get('unit')?.touched"
+        >
+          Unit is required.
+        </div>
+
+        <label class="mt-2">Delete Units</label>
+        <div class="d-flex gap-2">
+          <ng-select
+            [items]="units"
+            bindLabel="unit_name"
+            bindValue="id"
+            [(ngModel)]="selectedUnits"
+            [ngModelOptions]="{ standalone: true }"
+            [multiple]="true"
+            placeholder="Select to delete"
+            class="custom-currency-select ng-select-width-100"
+          >
+        
+        </ng-select>
+          <button
+            type="button"
+            (click)="deleteSelectedUnits()"
+            class="btn btn-danger btn-no-bg d-flex align-items-center justify-content-center btn-custom-height"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

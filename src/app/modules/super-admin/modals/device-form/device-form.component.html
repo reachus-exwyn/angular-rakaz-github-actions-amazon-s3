@@ -1,0 +1,147 @@
+<div class="formStyle">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{ mode === 'edit' ? 'Edit Device' : 'Add Device' }}
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    </div>
+  
+    <!-- Form Start -->
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="modal-body">
+        <div class="row">
+  
+          <!-- Device ID -->
+          <div class="col-md-6 mb-2">
+            <label>Device ID <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="deviceSerialNumber" placeholder="Device ID"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('deviceSerialNumber') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceSerialNumber')">
+              Device ID is required.
+            </div>
+          </div>
+  
+          <!-- Device Name -->
+          <div class="col-md-6 mb-2">
+            <label>Device Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="deviceName" placeholder="Device Name"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('deviceName') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceName')">
+              Device Name is required.
+            </div>
+          </div>
+  
+          <!-- Sensor Type -->
+          <div class="col-md-6 mb-2">
+            <label>Sensor Type <span class="text-danger">*</span></label>
+            <!-- <select class="form-control"  [(ngModel)]="selectedSensorType" formControlName="sensorType" [ngClass]="{ 'is-invalid': isFieldInvalid('sensorType') }" (change)="getSensorParameters()">
+              <option value="" disabled>Select Sensor Type</option>
+              <option *ngFor="let type of sensorTypes" [value]="type.id">{{ type.sensortype }}</option>
+            </select> -->
+            
+            <ng-select
+            [items]="sensorTypes"
+            bindLabel="sensortype"
+            bindValue="id"
+            [(ngModel)]="selectedSensorType"
+            [multiple]="false"
+            [closeOnSelect]="false"
+            [searchable]="true"
+            [clearable]="true"
+            placeholder="Select Sensor Type"
+            formControlName="sensorType"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('sensorType') }"
+            (change)="getSensorParameters()"
+            class="ng-select-checkbox custom-ng-select">
+        
+            <!-- Show checkboxes only if multiple selection is enabled -->
+            <!-- <ng-template
+              ng-option-tmp
+              let-item="item"
+              >
+              <input type="checkbox" [checked]="deviceForm.get('sensorType')?.value?.includes(item.id)" />
+              {{ item.sensortype }}
+            </ng-template>
+         -->
+            <!-- Fallback template for single select -->
+            <!-- <ng-template #singleSelect let-item="item">
+              {{ item.sensortype }}
+            </ng-template> -->
+        
+          </ng-select>
+        
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('sensorType')">
+            Sensor Type is required.
+          </div>
+ 
+          </div>
+  
+          <!-- Sensor Parameter -->
+          <div class="col-md-6 mb-2">
+            <label>Sensor Parameter <span class="text-danger">*</span></label>
+            <!-- <select class="form-control" formControlName="sensorParameter" [ngClass]="{ 'is-invalid': isFieldInvalid('sensorParameter') }">
+              <option value="" disabled>Select Sensor Parameter</option>
+              <option *ngFor="let param of sensorParameters" [value]="param.id">{{ param.sensorParameter }}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('sensorParameter')">
+              Sensor Parameter is required.
+            </div> -->
+
+            <ng-select
+            [items]="sensorParameters || []"
+            bindLabel="sensorParameter"
+            bindValue="id"
+            [multiple]="true"
+            [closeOnSelect]="false"
+            [(ngModel)]="selectedSensorParameter"
+            [searchable]="true"
+            placeholder="Select Sensor Parameter"
+            formControlName="sensorParameter"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('sensorParameter') }"
+            class="ng-select-checkbox custom-ng-select isMultiSelect">
+
+  <ng-template ng-option-tmp let-item="item">
+    <input type="checkbox"
+           [checked]="deviceForm.get('sensorParameter')?.value?.includes(item.id)" />
+    {{ item.sensorParameter }}
+  </ng-template>
+</ng-select>
+
+<div class="invalid-feedback" *ngIf="isFieldInvalid('sensorParameter')">
+  Sensor Parameter is required.
+</div>
+
+          </div>
+  
+          <!-- Device Make -->
+          <div class="col-md-6 mb-2">
+            <label>Device Make <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="deviceMake" placeholder="Device Make"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('deviceMake') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceMake')">
+              Device Make is required.
+            </div>
+          </div>
+  
+          <!-- Device Model -->
+          <div class="col-md-6 mb-2">
+            <label>Device Model <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="deviceModel" placeholder="Device Model"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('deviceModel') }" />
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('deviceModel')">
+              Device Model is required.
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+  

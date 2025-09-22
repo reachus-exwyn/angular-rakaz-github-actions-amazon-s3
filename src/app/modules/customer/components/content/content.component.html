@@ -1,0 +1,9 @@
+<div [ngSwitch]="selectedComponent.link">
+    <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>
+    <app-reports *ngSwitchCase="'reports'"></app-reports>
+<app-profile *ngSwitchCase="'profile'"></app-profile>
+<app-notification *ngSwitchCase="'notification'"></app-notification>
+
+
+<div *ngSwitchDefault>Select a module</div>
+</div>

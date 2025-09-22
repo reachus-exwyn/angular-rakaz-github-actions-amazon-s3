@@ -1,0 +1,34 @@
+<div class="headSection">
+    <div class="leftHeadSection"></div>
+    <div class="rightHeadSection">
+      <div class="searchBlock">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          class="formControlSearch"
+          placeholder="Search"
+          (input)="onQuickFilterChanged($event)"
+        />
+      </div>
+   
+    </div>
+  </div>
+  
+  <div class="bodyContent">
+    <ag-grid-angular
+      style="width: 100%;"
+      class="ag-theme-alpine ag-rakz-custom"
+      [theme]="'legacy'"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="pageSize"
+      domLayout="autoHeight"
+      (paginationChanged)="onPaginationChanged()"
+      (gridReady)="onGridReady($event)"
+    ></ag-grid-angular>
+
+  
+  </div>
+  

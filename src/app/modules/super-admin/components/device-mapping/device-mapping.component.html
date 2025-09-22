@@ -1,0 +1,142 @@
+<div class="headSection">
+    <div class="leftHeadSection">   
+    </div>
+    <div class="rightHeadSection">
+     
+        <button class="btn outline-primaryBt outline-primaryBt-custom" (click)="openDeviceMappingModal('create')">Add Device Mapping</button>
+    </div>
+</div>
+
+<div class="bodyContent deviceMappingWrapp">
+    <div class="row mt-3">
+        <div class="col-md-3 leftDeviceMapping">
+            <div class="card ">
+                <div class="searchBlock">
+                    <i class="bi bi-search"></i>
+                     <input type="text" class="formControlSearch" placeholder="Search" (input)="searchDeviceMappings($event)">
+                </div>
+                <div class="autoScroll cardItemList">        
+                <div class="cardItem activeCardItem" *ngFor="let item of deviceMappingListFiltered" (click)="getDeviceMappingDetails(item.id)">
+                    <div class="curvedTopRight">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium Con nection-Icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WifiIcon"><path d="m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9m8 8 3 3 3-3c-1.65-1.66-4.34-1.66-6 0m-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13"></path></svg>
+                    </div>
+                    <p>Name: <span>{{item.customer_admin_name}}</span></p>
+                    <p>Mapped Device Count: <span>{{item.device_count}}</span></p>                        
+                </div>
+
+                <!-- <div class="cardItem">
+                    <div class="curvedTopRight">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium Con nection-Icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WifiIcon"><path d="m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9m8 8 3 3 3-3c-1.65-1.66-4.34-1.66-6 0m-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13"></path></svg>
+                    </div>
+                    <p>Name: <span>Abbas</span></p>
+                    <p>Mapped Device Count: <span>1</span></p>                        
+                </div>
+
+                <div class="cardItem">
+                    <div class="curvedTopRight">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium Con nection-Icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WifiIcon"><path d="m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9m8 8 3 3 3-3c-1.65-1.66-4.34-1.66-6 0m-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13"></path></svg>
+                    </div>
+                    <p>Name: <span>Abbas</span></p>
+                    <p>Mapped Device Count: <span>1</span></p>                        
+                </div>
+                <div class="cardItem">
+                    <div class="curvedTopRight">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium Con nection-Icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WifiIcon"><path d="m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9m8 8 3 3 3-3c-1.65-1.66-4.34-1.66-6 0m-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13"></path></svg>
+                    </div>
+                    <p>Name: <span>Abbas</span></p>
+                    <p>Mapped Device Count: <span>1</span></p>                        
+                </div>
+                <div class="cardItem">
+                    <div class="curvedTopRight">
+                        <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium Con nection-Icon css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WifiIcon"><path d="m1 9 2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9m8 8 3 3 3-3c-1.65-1.66-4.34-1.66-6 0m-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13"></path></svg>
+                    </div>
+                    <p>Name: <span>Abbas</span></p>
+                    <p>Mapped Device Count: <span>1</span></p>                        
+                </div> -->
+            </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-5 middleDeviceMapping" *ngIf="deviceMappingDetails.length > 0">
+            <div class="card">
+             <h2>Fahed Mapping Details</h2>
+
+            <div class="mdMItem " *ngFor="let item of deviceMappingDetails">
+                <div class="mdmName">
+                    <img [src]="item.image" alt="" class="img-thumbnail">
+                    <h3>{{item.sensortype}}</h3>
+                </div>
+
+                <div class="mdmDetails" *ngFor="let device of item.devices" (click)="getDeviceDetails(device.device_id,item.sensortype)">
+                    <div class="row device-block">
+                        <div class="col-md-6">
+                            <p>Device ID: <span>{{device.device_id}}</span></p>
+                            <p>Device Make: <span>{{device.device_make}}</span></p>                               
+                        </div>
+                        <div class="col-md-6">
+                            <p>Device Name: <span>{{device.device_name}}</span></p>
+                            <p>Device Model: <span>{{device.device_model}}</span></p>                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+
+        <div class="col-md-4 rightDeviceMapping" *ngIf="deviceSensorParameters.length > 0">
+            <div class="card">
+                <h2>Air Parameters for Device ID - {{selectedDeviceId}}</h2>
+
+                <div class="mdMItem" *ngFor="let param of deviceSensorParameters">
+                 
+                    <div class="mdmDetails">
+                        <div class="row">
+                         
+                                <div class="col-md-8">
+                                    <p>Parameter: <span>{{param.parameter}}</span></p>
+                                    <p>Min Threshold: <span>{{param.min_threshold}}</span></p>  
+                                    <p>Max Threshold: <span>{{param.max_threshold}}</span></p>                             
+                                </div>
+                                <div class="col-md-4">     
+                                    <div class="mdmName">
+                                        <img [src]="param.image" alt="" class="img-thumbnail">                                      
+                                    </div>                               
+                                    <p>Units: <span>{{param.unit}}</span></p>                            
+                                </div>
+                         
+                           
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 rightDeviceMapping" *ngIf="deviceSensorParameters.length == 0">
+            <div class="card">
+                <!-- <h2>Air Parameters for Device ID - {{selectedDeviceId}}</h2> -->
+
+                <div class="mdMItem">
+                 
+                    <div class="mdmDetails">
+                        <div class="row">
+                            <div class="col-md-12">
+                                                             
+                                <p>No data found</p>                            
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+

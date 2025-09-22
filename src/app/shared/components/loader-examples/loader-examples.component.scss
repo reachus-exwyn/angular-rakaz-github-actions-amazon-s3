@@ -1,0 +1,158 @@
+// Loader Examples Component Styles
+// Using project color scheme
+
+.loader-examples-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  
+  h2 {
+    color: #4725a7;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    color: #616161;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.example-section {
+  background-color: #f2eeff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e8e0ff;
+  
+  h3 {
+    color: #4725a7;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  
+  .btn {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(71, 37, 167, 0.2);
+    }
+  }
+}
+
+.inline-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  
+  .inline-example {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #e8e0ff;
+    
+    h4 {
+      color: #4725a7;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .btn {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
+}
+
+.inline-display-area {
+  background-color: #f2eeff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e8e0ff;
+  
+  h3 {
+    color: #4725a7;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .display-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #e8e0ff;
+    text-align: center;
+    
+    p {
+      color: #616161;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .loader-examples-container {
+    padding: 15px;
+  }
+  
+  .examples-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+    
+    .btn {
+      width: 100%;
+      max-width: 200px;
+    }
+  }
+  
+  .inline-examples {
+    .inline-example {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+  }
+}

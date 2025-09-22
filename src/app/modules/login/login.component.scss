@@ -1,0 +1,153 @@
+.login-wrapper {
+    .loginLogo{
+      margin-top:30px;
+      img{
+        width:170px;
+       
+        cursor: pointer;
+      }
+    }
+      
+        .login-card {
+          display: flex;
+          align-items: center;
+          width: 820px;
+          background: #fff;
+          border-radius: 20px;
+          box-shadow: 0 0 10px #ccc;
+          overflow: hidden;
+          margin: auto;
+      
+    
+      
+          .login-left {
+            width:350px;
+            padding-left:30px;
+            padding-right:2px;
+            h2 {
+              font-size: 22px;
+              font-weight:700;
+              color: #6c3ec1;
+            }
+      
+            p {
+              font-size: 12px;
+              color: #999;
+              margin-bottom: 20px;
+            }
+    
+            .form-control{
+              height:32px;
+              border-color: #4725a7 !important;
+              margin: 8px 0px 4px;
+              border-radius: 4px;
+              font-size: 12px;
+              font-weight: 400;
+              color: #000;
+            }
+      
+            .input-icon {
+              position: relative;
+      
+              i.icon-left {
+                position: absolute;
+                top: 50%;
+                left: 12px;
+                transform: translateY(-50%);
+                color: #6c3ec1;
+              }
+      
+              input {
+                padding-left: 35px;
+              }
+             
+      
+              .toggle-eye {
+                position: absolute;
+                right: 12px !important;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+              }
+            }
+      
+            .btn-primary {
+              margin-top:30px;
+              background-color:#4725a7;
+              border: none;
+              font-size:13px;
+              font-weight:600;
+              height:35px;
+      
+              &:hover {
+                background-color:#351c7d!important;
+              }
+            }
+          }
+      
+          .login-right {
+            width:475px;
+            position: relative;
+    
+      
+            img {
+              height: 430px;
+              object-fit: cover;
+              width: 100%;
+            }
+      
+            .dot-indicators {
+              margin-top: 20px;
+              display: flex;
+              gap: 6px;
+      
+              span {
+                width: 10px;
+                height: 10px;
+                background: #ccc;
+                border-radius: 50%;
+      
+                &.active {
+                  background: #6c3ec1;
+                }
+              }
+            }
+          }
+        }
+      }
+      .label {
+        color: #4725a7 !important;
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+    }
+     .item-right-svg-curved{
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100px;
+      z-index: 1;
+    }
+    
+    ::ng-deep .carousel-indicators [data-bs-target] {
+      width: 12px !important;
+      height:12px !important;
+      border-radius: 50% !important; /* Circle */
+      background-color: #fff;
+      margin: 0 4px;
+      border: none;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+    
+    ::ng-deep .carousel-indicators [data-bs-target]:hover {
+      opacity: 0.9;
+    
+    }
+    
+    ::ng-deep .carousel-indicators .active {
+      background-color:#4725a7; /* or your primary color */
+      opacity: 1;
+    }
+    

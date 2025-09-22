@@ -1,0 +1,14 @@
+// Force modal to be visible
+::ng-deep .modal {
+  display: block !important;
+  z-index: 1050 !important;
+}
+
+::ng-deep .modal-backdrop {
+  z-index: 1040 !important;
+}
+
+::ng-deep .modal-dialog {
+  z-index: 1055 !important;
+  width: 50% !important;
+}

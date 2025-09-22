@@ -1,0 +1,235 @@
+<div class="containerColor">
+    <!-- <div class="headingBlock">
+        <h1 class="colorBlue">Hi Saeed</h1>
+    </div> -->
+
+    <div class="headSection mt-2">
+        <div class="leftHeadSection">
+            <div class="filterDateReport">
+                <select class="form-select">
+                    <option value="">Sensor Type</option>
+                    <option value="" selected>Air</option>
+                    <option value="">Water</option>
+                </select>
+
+
+
+                <select class="form-select">
+                    <option value="">Device Id</option>
+                    <option value="">2324</option>
+                </select>
+
+                <div class="input-group">
+                    <input class="form-control" placeholder="Start Date" name="dp" [(ngModel)]="model" ngbDatepicker
+                        #d="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
+                        type="button"></button>
+                </div>
+
+                <div class="input-group">
+                    <input class="form-control" placeholder="End Date" name="dp" [(ngModel)]="model" ngbDatepicker
+                        #d="ngbDatepicker" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()"
+                        type="button"></button>
+                </div>
+                <button class="btn btn btn-primary"><i class="bi bi-funnel"></i> Apply</button>
+                <button class="btn btn btn-primary"><i class="bi bi-x-circle"></i> Clear</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="bodyContent">
+        <div class="paymentStatusBlock">
+            <h2>Payment Status</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/hand-money.gif" alt="">
+                            <div class="ps-text">
+                                <p>Fine Received</p>
+                                <h3>AED 0</h3>
+                            </div>
+                            <button class="btn iconBtn"><i class="bi bi-eye-slash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/time-money.gif" alt="">
+                            <div class="ps-text">
+                                <p>Fine Pending</p>
+                                <h3>AED 8050</h3>
+                            </div>
+                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/hand-money.gif" alt="">
+                            <div class="ps-text">
+                                <p>Penalty Received</p>
+                                <h3>AED 0</h3>
+                            </div>
+                            <button class="btn iconBtn"><i class="bi bi-eye-slash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/time-money.gif" alt="">
+                            <div class="ps-text">
+                                <p>Penalty Pending</p>
+                                <h3>AED 4415.5</h3>
+                            </div>
+                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <!-- Parameter Reading -->
+            <div class="col-md-8">
+                <div class="parameter-reading-card card">
+                    <div class="card-body">
+                        <div class="header d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">Parameter Reading</h4>
+                            <select class="form-select w-25" [(ngModel)]="selectedParameter">
+                                <option *ngFor="let param of parameterList" [value]="param">{{ param }}</option>
+                            </select>
+                        </div>
+
+                        <app-dashboard-charts [chartOptions]="parameterChartOptions[selectedParameter]">
+                        </app-dashboard-charts>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Overall Data</h2>
+                        </div>
+
+                        <div class="paymentStatusBlock mt-0">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/time-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Sensor Groups</p>
+                                                <h3>4</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/hand-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Total Warnings</p>
+                                                <h3>42</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card mt-0">
+                                        <div class="card-body">
+                                            <img src="assets/time-money.gif" alt="">
+                                            <div class="ps-text">
+                                                <p>Total Violations</p>
+                                                <h3>12</h3>
+                                            </div>
+                                            <button class="btn iconBtn"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="parameter-reading-card card mt-3">
+                    <div class="card-body">
+                        <!-- Warning Details -->
+                        <app-dashboard-charts [chartOptions]="warningDetailsChartOptions" chartType="column">
+                        </app-dashboard-charts>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Recent Readings -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="cardTitle">Recent Readings</h4>
+                        <div class="reading-scroll">
+                            <div class="reading-item" *ngFor="let param of recentReadings">
+                                <label class="label">{{ param.name }}</label>
+                                <div class="bar-container">
+                                    <div class="bar-track">
+                                        <div class="bar-fill" [ngStyle]="{
+                    width: getBarWidth(param) + '%',
+                    backgroundColor: param.value > param.max ? '#f00' : '#28a745'
+                  }"></div>
+                                        <div class="dot" [ngStyle]="{ left: getBarWidth(param) + '%' }"></div>
+                                        <div class="threshold-dot" [ngStyle]="{ left: param.max + '%' }"></div>
+                                    </div>
+                                    <div class="bar-labels">
+                                        <span>Min0</span>
+                                        <span class="max-label">Max {{ param.max }}</span>
+                                        <span class="value-label">{{ param.value }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <!-- Breached Parameter -->
+                        <app-dashboard-charts [chartOptions]="breachedParameterChartOptions" chartType="pie">
+                        </app-dashboard-charts>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="cardTitle">
+                            <h2>Violation Date</h2>
+                        </div>
+                        <div class="custom-date-picker">
+                            <ngb-datepicker class="date-picker-block" #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

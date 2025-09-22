@@ -1,0 +1,348 @@
+<div class="formStyle">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{
+        mode === "create"
+          ? "Add Sensor Group Mapping"
+          : "Edit Sensor Group Mapping"
+      }}
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss()"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div formGroupName="step1">
+      <div *ngIf="currentStep === 1">
+        <div class="row">
+          <!-- Sensor Type -->
+          <div class="mb-3 col-md-3">
+            <label class="form-label fw-bold">
+              Sensor Type <span class="text-danger">*</span>
+            </label>
+            <ng-select 
+              [items]="sensorTypes"
+              class="custom-ng-select"
+              [clearable]="false"
+              placeholder="Select Sensor Type"
+              bindLabel="sensor_type"
+              bindValue="sensor_type_id"
+              formControlName="sensorType"
+              (change)="onSensorTypeChange($event)"
+              >
+            </ng-select>
+          </div>
+  
+          <!-- Sensor Group Name -->
+          <div class="mb-3 col-md-3">
+            <label class="form-label fw-bold">
+              Sensor Group Name <span class="text-danger">*</span>
+            </label>
+            <ng-select
+              [items]="sensorGroupNameOptions[form.get('step1.sensorType')?.value] || []"
+              class="custom-ng-select"
+              [clearable]="false"
+              placeholder="Select Sensor Group Name"
+              formControlName="sensorGroupName"
+              bindLabel="sensor_group_name"
+              bindValue="sensor_group_id"
+              (change)="loadSensorParameters(form.get('step1.sensorType')?.value,form.get('step1.sensorGroupName')?.value)"
+              >
+            </ng-select>
+          </div>
+  
+          <!-- Sensor Parameters Switch -->
+          <div class="mb-3 col-md-3 d-flex align-items-center">
+            <label class="form-label fw-bold me-2">Sensor Parameters</label>
+            <ui-switch
+              [checked]="sensorParamsEnabled"
+              (change)="toggleSensorParams($event)"
+            >
+            </ui-switch>
+          </div>
+
+         
+        </div>
+        <!-- When Sensor Parameters ON -->
+        <div *ngIf="showSensorParams" class="sensor-params-section">
+          <div formArrayName="sensorParameters">
+            <div
+              *ngFor="let param of sensorParametersArray.controls; let i = index"
+              [formGroupName]="i"
+              class="row align-items-end mb-3 parameter-block"
+              [class.has-connector]="i < sensorParametersArray.length - 1"
+            >
+              <div class="col-md-3"></div>
+      
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Sensor Parameter <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="sensorParameter"
+                  placeholder="Sensor Parameter"
+                />
+              </div>
+      
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Min Threshold Limit <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="minThresholdLimit"
+                />
+              </div>
+      
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Max Threshold Limit <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="maxThresholdLimit"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- When Sensor Parameters OFF -->
+        <div>
+          <div class="row">
+            <div class="mb-3 col-md-3">
+              <label class="form-label fw-bold"
+                >Customer Name <span class="text-danger">*</span></label
+              >
+              <ng-select
+                formControlName="customerName"
+                class="custom-ng-select"
+                [items]="customers"
+                [clearable]="false"
+                bindLabel="customer_name"
+                bindValue="id"
+                placeholder="Select Customer Name"
+              >
+              </ng-select>
+            </div>
+  
+            <div class="mb-3 col-md-3">
+              <label class="form-label fw-bold"
+                >Device ID <span class="text-danger">*</span></label
+              >
+              <ng-select
+                formControlName="deviceId"
+                class="custom-ng-select"
+                [items]="devices"
+                [clearable]="false"
+                bindLabel="device_id"
+                bindValue="id"
+                placeholder="Select Device ID"
+                (change)="onDeviceChange($event)"
+              >
+              </ng-select>
+            </div>
+  
+            <div class="mb-3 col-md-3">
+              <label class="form-label fw-bold"
+                >Device Make <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="deviceMake"
+                placeholder="Device Make"
+              />
+            </div>
+  
+            <div class="mb-3 col-md-3">
+              <label class="form-label fw-bold"
+                >Device Model <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                formControlName="deviceModel"
+                placeholder="Device Model"
+              />
+            </div>
+          </div>
+  
+          <!-- <div class="row">
+              <div class="mb-3 col-md-3">
+                <label class="form-label fw-bold">Device Latitude <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="deviceLatitude" placeholder="Device Latitude" />
+              </div>
+    
+              <div class="mb-3 col-md-3">
+                <label class="form-label fw-bold">Device Longitude <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="deviceLongitude" placeholder="Device Longitude" />
+              </div>
+            </div> -->
+  
+          <div class="row">
+            <div class="row">
+              <!-- Device Latitude -->
+              <div class="mb-3 col-md-3">
+                <label for="deviceLatitude" class="form-label fw-bold">
+                  Device Latitude <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <input
+                    id="deviceLatitude"
+                    type="text"
+                    class="form-control"
+                    formControlName="deviceLatitude"
+                    placeholder="Device Latitude"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm location-btn btn-outline-secondary"
+                    type="button"
+                    (click)="openLocationModal('latitude')"
+                  >
+                    <i class="bi bi-geo-alt-fill text-danger"></i>
+                  </button>
+                </div>
+              </div>
+  
+              <!-- Device Longitude -->
+              <div class="mb-3 col-md-3">
+                <label for="deviceLongitude" class="form-label fw-bold">
+                  Device Longitude <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <input
+                    id="deviceLongitude"
+                    type="text"
+                    class="form-control"
+                    formControlName="deviceLongitude"
+                    placeholder="Device Longitude"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm location-btn btn-outline-secondary"
+                    type="button"
+                    (click)="openLocationModal('longitude')"
+                  >
+                    <i class="bi bi-geo-alt-fill text-danger"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+     <!-- Step 2: Fine / Penalty Details -->
+  <div *ngIf="currentStep === 2" formGroupName="step2">
+    <div class="row">
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Fine Amount in AED<span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="fineAmount" />
+      </div>
+
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Frequency <span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="frequency" />
+      </div>
+
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Frequency Per <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="frequencyPer">
+          <option value="DAY">Day</option>
+          <option value="WEEK">Week</option>
+          <option value="MONTH">Month</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Warning Per <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="warningPer">
+          <option value="DAY">Day</option>
+          <option value="WEEK">Week</option>
+        </select>
+      </div>
+
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Warning <span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="warning" />
+      </div>
+
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Penalty in % <span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="penaltyPercent" />
+      </div>
+
+      <div class="mb-3 col-md-3">
+        <label class="form-label fw-bold">Penalty Per <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="penaltyPer">
+          <option value="DAY">Day</option>
+          <option value="WEEK">Week</option>
+        </select>
+      </div>
+    </div>
+
+  
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-check form-check-inline">
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            formControlName="resetType" 
+            value="violation" 
+            id="resetViolation"
+          />
+          <label class="form-check-label" for="resetViolation">Reset by Violation</label>
+        </div>
+      </div>
+    
+      <div class="col-md-3">
+        <div class="form-check form-check-inline">
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            formControlName="resetType" 
+            value="period" 
+            id="resetPeriod"
+          />
+          <label class="form-check-label" for="resetPeriod">Reset by Period</label>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+     
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="activeModal.dismiss()"
+    >
+      Cancel
+    </button>
+    <!-- <button type="button" class="btn btn-primary" (click)="submitForm()">
+      Save
+    </button> -->
+
+    <button *ngIf="currentStep === 1" type="button" class="btn btn-primary" (click)="goNext()">Next</button>
+    <button *ngIf="currentStep === 2" type="button" class="btn btn-secondary" (click)="goBack()">Back</button>
+    <button *ngIf="currentStep === 2" type="button" class="btn btn-primary" (click)="submitForm()">Save</button>
+  </div>
+</div>

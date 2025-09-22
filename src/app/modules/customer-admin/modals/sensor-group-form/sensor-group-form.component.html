@@ -1,0 +1,139 @@
+<div class="formStyle">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{ type === "create" ? "Add Sensor Group" : "Edit Sensor Group" }}
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="mb-3 col-md-3">
+          <label class="form-label fw-bold">
+            Sensor Group Name <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="sensorGroupName"
+            placeholder="Sensor Group Name"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-2">
+          <label class="form-label fw-bold">
+            Sensor Type <span class="text-danger">*</span>
+          </label>
+          <select
+            class="form-control"
+            formControlName="sensorType"
+            (change)="onSensorTypeChange($event)"
+          >
+            <option value="" disabled>Select Sensor Type</option>
+            <option *ngFor="let sensor of sensors" [value]="sensor.id">
+              {{ sensor.sensortype }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-10">
+          <div formArrayName="parameters">
+            <div
+              *ngFor="let param of parameters.controls; let i = index"
+              [formGroupName]="i"
+              class="row align-items-end mb-3 parameter-block"
+              [class.has-connector]="i < parameters.length - 1"
+            >
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Sensor Parameter <span class="text-danger">*</span>
+                </label>
+
+                <ng-select
+                  formControlName="sensorParameter"
+                  class="custom-ng-select ng-select-width-100"
+                  placeholder="Select Parameter"
+                  (change)="onParameterSelect($event, i)"
+                >
+                  <ng-option
+                    *ngFor="let p of getAvailableParameters(i)"
+                    [value]="p.id"
+                  >
+                    {{ p.sensorParameter }}
+                  </ng-option>
+                </ng-select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label fw-bold">
+                  Unit <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="unit"
+                  placeholder="Unit"
+                />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Min Threshold Limit <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="minThreshold"
+                  placeholder="Min Threshold"
+                />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">
+                  Max Threshold Limit <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="maxThreshold"
+                  placeholder="Max Threshold"
+                />
+              </div>
+              <div class="col-md-1 text-center" *ngIf="parameters.length > 1">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger mb-2"
+                  (click)="removeParameter(i)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-outline-primary mt-2"
+        (click)="addParameter()"
+        *ngIf="parameters.length < parametersList.length"
+      >
+        Add Parameter
+      </button>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="activeModal.dismiss()"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  </div>
+</div>

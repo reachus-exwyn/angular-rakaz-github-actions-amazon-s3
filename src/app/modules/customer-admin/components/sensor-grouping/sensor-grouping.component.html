@@ -1,0 +1,38 @@
+<div class="headSection">
+    <div class="leftHeadSection"></div>
+    <div class="rightHeadSection">
+      <div class="searchBlock">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          class="formControlSearch"
+          placeholder="Search"
+          (input)="onQuickFilterChanged($event)"
+        />
+      </div>
+      <button
+        class="btn outline-primaryBt outline-primaryBt-custom"
+        (click)="openSensorGroupingModal('create')"
+      >
+      Add Sensor Group Mapping
+      </button>
+    </div>
+  </div>
+  
+  <div class="bodyContent">
+    <ag-grid-angular
+      style="width: 100%;"
+      class="ag-theme-alpine ag-rakz-custom"
+      [theme]="'legacy'"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="pageSize"
+      [paginationPageSizeSelector]="pageSizeSelector"
+      domLayout="autoHeight"
+      (paginationChanged)="onPaginationChanged()"
+      (gridReady)="onGridReady($event)"
+    ></ag-grid-angular>
+  </div>
+  

@@ -1,0 +1,236 @@
+<div class="formStyle">
+  <!-- Modal Header -->
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{ mode === 'edit' ? 'Edit Customer Admin' : 'Add Customer Admin' }}
+    </h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+  </div>
+
+  <!-- Form Start -->
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <div class="row">
+        <div  [ngClass]="isPlanSelected ? 'col-md-8' : 'col-md-12'">
+          <div class="row"> 
+       <!-- Customer Type -->
+       <div class="col-md-6 mb-1">
+        <label>Customer Type <span class="text-danger">*</span></label>
+        <select class="form-control" formControlName="customerType"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('customerType') }">
+          <option value="" disabled [selected]="!customerForm.get('customerType')?.value" class="placeholder-option">Select
+            Customer Type</option>
+          <option *ngFor="let customerType of customerTypes" [value]="customerType.id">{{ customerType.customer_type }}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="isFieldInvalid('customerType')">
+          Select customer type
+        </div>
+      </div>
+
+        <!-- Contact Person Name -->
+        <div class="col-md-6 mb-1">
+          <label>Contact Person Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="contactPersonName" maxlength="30"
+            placeholder="Enter Contact Person Name" [ngClass]="{ 'is-invalid': isFieldInvalid('contactPersonName') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('contactPersonName')">
+            Enter contact person name
+          </div>
+        </div>
+
+        <!-- Customer Name -->
+        <div class="col-md-6 mb-1">
+          <label>Customer Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="customerName" placeholder="Enter Customer Name"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('customerName') }" maxlength="30" pattern="^[a-zA-Z0-9]{3,30}$"
+            (input)="removeInvalidChars($event)" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('customerName')">
+            Enter valid customer name (only lowercase without space)
+          </div>
+        </div>
+
+        <!-- Organization Name -->
+        <div class="col-md-6 mb-1">
+          <label>Organization Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="organizationName" maxlength="30"
+            placeholder="Enter Organization Name" [ngClass]="{ 'is-invalid': isFieldInvalid('organizationName') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('organizationName')">
+            Enter organization name
+          </div>
+        </div>
+
+        <!-- Contact Number -->
+        <div class="col-md-6 mb-1">
+          <label>Contact Number <span class="text-danger">*</span></label>
+
+          <ngx-intl-tel-input [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="false"
+            [searchCountryField]="[SearchCountryField.Name, SearchCountryField.DialCode]" [selectFirstCountry]="false"
+            [selectedCountryISO]="selectedCountryISO" [separateDialCode]="true" [maxLength]="15" name="phone"
+            formControlName="contactNumber"></ngx-intl-tel-input>
+          <div
+            *ngIf="customerForm.get('contactNumber')?.invalid && (customerForm.get('contactNumber')?.touched || formSubmitted)">
+            <small class="text-danger">Enter contact number</small>
+          </div>
+
+        </div>
+
+
+        <!-- Email -->
+        <div class="col-md-6 mb-1">
+          <label>Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('email') }" maxlength="30" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+            Enter email
+          </div>
+        </div>
+
+        <!-- Currency -->
+        <div class="col-md-6 mb-1" *ngIf="mode === 'create'">
+          <label>Currency <span class="text-danger">*</span></label>
+          <ng-select [items]="currencyList" bindLabel="country" bindValue="code" [(ngModel)]="selectedCurrency"
+            placeholder="Select Currency" [searchable]="true" [clearable]="true" class="custom-currency-select"
+            formControlName="currency" [ngClass]="{ 'is-invalid': isFieldInvalid('currency') }">
+            <ng-template ng-label-tmp let-item="item">
+              <!-- <span class="fi fi-{{ item.code }}"></span> -->
+              {{ item.code }}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <span class="fi fi-{{ item.country_code.toLowerCase() }} mr-2"></span>
+              {{ item.country }} ({{ item.code }})
+            </ng-template>
+          </ng-select>
+
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('currency')">
+            Select currency
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6 mb-1" *ngIf="mode === 'create'">
+          <label>Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Enter Password"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('password') }" maxlength="30" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('password')">
+            Enter password
+          </div>
+        </div>      
+        
+
+         <!-- Trade License ID -->
+         <div class="col-md-6 mb-1" *ngIf="mode === 'edit'">
+          <label>Trade License ID <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="tradeLicenseId" placeholder="Trade License ID"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('tradeLicenseId') }" maxlength="30" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('tradeLicenseId')">
+            Enter trade licence
+          </div>
+        </div>   
+
+        <!-- VAT ID -->
+        <div class="col-md-6 mb-1" *ngIf="mode === 'edit'">
+          <label>VAT ID <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="vatId" placeholder="VAT ID"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('vatId') }" maxlength="30" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('vatId')">
+            Enter VAT (Value - Added Tax)
+          </div>
+        </div>   
+
+        <!-- Plan Details -->
+        <div class="col-md-12 mb-1">
+          <label>Plan Details <span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="planDetails"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('planDetails') }" (change)="onPlanChange($event)">
+            <option value="" disabled [selected]="!customerForm.get('planDetails')?.value" class="placeholder-option">Select
+              Plan Details</option>
+            <option *ngFor="let planDetail of planDetails" [value]="planDetail.id">{{ planDetail.plan_name }}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('planDetails')">
+            Select plan details
+          </div>
+        </div>
+
+
+        <!-- Address -->
+        <div class="col-md-6 mb-1">
+          <label>Plot No, Street Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="address" placeholder="Enter Plot No, Street Name"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('address') }" />
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('address')">
+            Enter plot no, street name
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="col-md-6 mb-1">
+          <label>Country <span class="text-danger">*</span></label>
+          <!-- <input type="text" class="form-control" formControlName="country" placeholder="Enter Country"
+              [ngClass]="{ 'is-invalid': isFieldInvalid('country') }" /> -->
+          <ng-select [items]="countries" bindLabel="name" bindValue="id" [(ngModel)]="selectedCountry"
+            placeholder="Select Country" [searchable]="true" [clearable]="true" class="custom-currency-select"
+            formControlName="country" [ngClass]="{ 'is-invalid': isFieldInvalid('country') }" (change)="getStates()">
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('country')">
+            Select country
+          </div>
+        </div>
+
+        <!-- State -->
+          <div class="col-md-6 mb-1" *ngIf="selectedCountry">
+          <label>State <span class="text-danger">*</span></label>
+          <ng-select [items]="states" bindLabel="name" bindValue="id" [(ngModel)]="selectedState"
+            placeholder="Select State" [searchable]="true" [clearable]="true" class="custom-currency-select"
+            formControlName="state" [ngClass]="{ 'is-invalid': isFieldInvalid('state') }" (change)="getCities()">
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('state')">
+            Select state
+          </div>
+        </div>
+
+        <!-- City -->
+        <div class="col-md-6 mb-1" *ngIf="selectedState">
+          <label>City <span class="text-danger">*</span></label>
+          <ng-select [items]="cities" bindLabel="name" bindValue="id" [(ngModel)]="selectedCity"
+            placeholder="Select City" [searchable]="true" [clearable]="true" class="custom-currency-select"
+            formControlName="city" [ngClass]="{ 'is-invalid': isFieldInvalid('city') }">
+          </ng-select>
+          <div class="invalid-feedback" *ngIf="isFieldInvalid('city')">
+            Select city
+          </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="col-md-4" *ngIf="isPlanSelected">
+          <div class="plan-preview-card p-3 border rounded shadow-sm">
+            <h5 class="fw-bold text-primary">{{ selectedPlan.plan_name }} Plan</h5>
+            <hr class="my-2">
+            <p class="fs-4 fw-bold text-dark">
+              AED {{ selectedPlan.price }} 
+              <span class="fs-6 text-muted">/ {{ selectedPlan.period }}</span>
+            </p>
+            <p class="fw-bold mb-2">This plan includes:</p>
+            <ul class="list-unstyled mb-0">
+              <li *ngFor="let description of selectedPlan.descriptions" class="mb-1 d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                <span class="small">{{ description }}</span>
+              </li>
+            </ul>
+          </div>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

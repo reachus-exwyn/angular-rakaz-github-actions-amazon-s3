@@ -1,0 +1,9 @@
+<app-loader
+  *ngIf="isLoading"
+  [type]="config.type || 'spinner'"
+  [size]="config.size || 'medium'"
+  [color]="config.color || 'primary'"
+  [text]="config.text || ''"
+  [overlay]="config.overlay !== false"
+  [fullScreen]="config.fullScreen || false">
+</app-loader>
