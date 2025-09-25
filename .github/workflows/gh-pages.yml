@@ -25,7 +25,10 @@ jobs:
         node-version: 18.20.4
 
     - name: Install dependencies
-      run: npm install --force
+      run: npm ci
+
+    - name: Install Angular CLI globally
+      run: npm install -g @angular/cli --force
 
     - name: Build
       run: npm run build:prod
