@@ -1,6 +1,5 @@
 # Angular build and cache
 .angular/
-dist/
 tmp/
 out-tsc/
 coverage/
